@@ -136,6 +136,11 @@ function generateSet(cats, supply, rng) {
 
   // 1. Forced traits first — these are guaranteed, so they get first claim on the space.
   //    Each forced value is then blocked from the random fill, keeping the count exact.
+  //
+  //    Counts are scaled to the build size. Without this, a 36-piece preview would seed
+  //    32 forced pieces and show you a contact sheet that's almost all crowns — nothing
+  //    like the real collection.
+  const scale = supply / config.supply;
   for (const f of config.forced || []) {
     const [cat, value] = f.trait.split(':');
     const catDef = cats.find(c => c.key === cat);
@@ -144,10 +149,11 @@ function generateSet(cats, supply, rng) {
       console.warn(`  ! forced trait ${f.trait} has no matching file — skipping`);
       continue;
     }
-    for (let i = 0; i < f.count; i++) {
+    const want = scale === 1 ? f.count : Math.round(f.count * scale);
+    for (let i = 0; i < want; i++) {
       const r = rollOne(cats, rng, seen, { [cat]: value }, blocked);
       if (!r) throw new Error(
-        `Could not satisfy forced trait ${f.trait} (#${i + 1}/${f.count}).\n` +
+        `Could not satisfy forced trait ${f.trait} (#${i + 1}/${want}).\n` +
         `  Its exclusion rules are probably too tight — check config.exclusions.`
       );
       items.push(r);

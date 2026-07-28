@@ -9,7 +9,9 @@
     "preview": "node build.js --preview",
     "dry": "node build.js --dry",
     "stub": "node tools/make-stubs.js",
-    "make-none": "node tools/make-none.js"
+    "make-none": "node tools/make-none.js",
+    "art": "node tools/draw-layers.js",
+    "showcase": "node tools/make-showcase.js"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.65"

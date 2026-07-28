@@ -219,26 +219,25 @@ h3 { font-size: 1.25rem; font-weight: 800; }
 }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 0; }
 
-/* ---------- pack of dogs (SVG row) ---------- */
+/* ---------- pack of dawgs (real generated art) ---------- */
 .pack {
   display: flex;
   justify-content: center;
-  gap: 0;
-  margin: 40px 0 0;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 44px 0 0;
   padding: 0 8px;
 }
-.pack svg {
-  width: clamp(88px, 15vw, 168px);
+.pack img {
+  width: clamp(96px, 14vw, 172px);
   height: auto;
   flex: 0 0 auto;
-  margin-left: -12px;
-  filter: drop-shadow(0 10px 26px rgba(0,0,0,.55));
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 30px rgba(0,0,0,.5);
   transition: transform .2s ease;
 }
-.pack svg:hover { transform: translateY(-12px) rotate(-3deg); z-index: 2; }
-.pack svg:nth-child(odd) { transform: rotate(-2.5deg); }
-.pack svg:nth-child(even) { transform: rotate(2deg) translateY(8px); }
-.pack svg:nth-child(3) { width: clamp(104px, 18vw, 200px); z-index: 3; }
+.pack img:hover { transform: translateY(-10px) rotate(-2deg); z-index: 2; }
 
 /* ---------- marquee ---------- */
 .marquee {
@@ -692,4 +691,35 @@ footer {
   .zrow .nn { display: none; }
   .tier { grid-template-columns: 84px 1fr 66px; }
   .lab-toolbar { top: 0; }
+}
+
+/* ---------- shipped concept (featured) ---------- */
+.concept.shipped { padding: 30px; margin-bottom: 8px; }
+.shipped-in { display: grid; grid-template-columns: 1fr minmax(240px, 380px); gap: 32px; align-items: start; }
+.shipped-art { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.shipped-art img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  display: block;
+}
+@media (max-width: 820px) { .shipped-in { grid-template-columns: 1fr; } }
+
+/* a build step that's already been run */
+.step.done { border-color: rgba(200,255,61,.34); }
+.step.done::before { content: "\2713"; color: var(--lime); }
+.step.done h3::after {
+  content: "done";
+  font-family: var(--mono);
+  font-size: .56rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: var(--lime);
+  color: #0a0a0b;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-weight: 700;
 }

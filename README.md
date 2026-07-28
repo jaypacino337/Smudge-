@@ -1,10 +1,12 @@
 # PUMP DAWGS 🐾
 
-**1,111 hand-drawn dawgs on Solana, with a paired token.**
+**1,111 dawgs on Solana, with a paired token.**
 
-This repo is the whole project: the site, four art directions, a 125-layer generative art
-system, the complete prompt library for mass-producing the art with ChatGPT, and a working
-generator that outputs mint-ready images + Metaplex metadata.
+Heavy ink, cel shading, cosmic backgrounds — Quantum Cats' confidence, but dogs.
+
+This repo is the whole project: **all 125 art layers**, a working generator that outputs
+mint-ready images + Metaplex metadata, the site, four alternative art directions, and the
+X/Discord launch kit. The collection builds end-to-end today.
 
 > **Naming:** `PUMP DAWGS`, ticker `$DAWGS`. Set in exactly two places — `BRAND` in
 > `assets/js/brand.js` (site) and `name`/`symbol` in `generator/config.js` (metadata).
@@ -12,18 +14,28 @@ generator that outputs mint-ready images + Metaplex metadata.
 
 ---
 
-## Try it in 60 seconds
-
-The generator ships with a stub-art mode, so you can run the **entire pipeline** — rarity,
-exclusion rules, metadata, contact sheet — before a single real drawing exists.
+## Build the collection
 
 ```bash
 cd generator
 npm install
-npm run stub            # placeholder PNGs for all 125 layers
-npm run preview -- 36   # contact sheet → output/_preview.png
+npm run art             # draws all 125 layers (~20s)
+npm run preview -- 36   # contact sheet -> output/_preview.png
 npm run build -- 1111   # full collection + Metaplex metadata + rarity report
 ```
+
+`generator/layers/` and `generator/output/` are gitignored on purpose — 132 layer PNGs at
+2048px and 1,111 renders don't belong in git, and `npm run art` reproduces them byte-for-byte
+from source. Committed sample renders live in [`showcase/`](showcase/).
+
+Other commands:
+
+| | |
+|---|---|
+| `npm run art -- crayon` | re-render every layer in the Concept 1 marker style |
+| `npm run showcase` | regenerate the site images, X banner and PFP |
+| `npm run make-none` | rewrite the transparent `none` layers |
+| `npm run dry -- 200` | metadata + rarity only, no image compositing (fast) |
 
 For the site:
 
@@ -39,33 +51,49 @@ python3 -m http.server 8000   # then open http://localhost:8000
 |---|---|
 | `index.html` | The site — thesis, four concepts, layer system, build steps, FAQ |
 | `lab.html` | **Prompt Lab** — all 125 prompts, searchable, one-click copy, batch export |
-| `art/CONCEPTS.md` | The four art directions, with a recommendation and the reasoning |
+| `art/CONCEPTS.md` | The shipped direction plus four alternatives, with the reasoning |
 | `art/LAYER-SPEC.md` | How the layering actually works: anchors, z-order, rarity, exclusions, Metaplex |
 | `art/prompts.json` | **Source of truth** — all 125 layer definitions, weights, and prompts |
 | `art/prompts/` | Generated paste-ready batch files, one per category |
 | `art/build-prompt-packs.js` | Regenerates `art/prompts/*.md` + `assets/js/prompts-data.js` from the JSON |
+| `generator/tools/draw-layers.js` | **Draws all 125 layers** — the artwork, in code |
+| `generator/tools/lib/draw.js` | Ink-and-cel drawing toolkit; `quantum` and `crayon` style presets |
 | `generator/` | The generative engine — weighted rarity, exclusions, DNA dedupe, metadata |
+| `showcase/` | Committed sample renders, X banner (1500x500), and PFP (800x800) |
 | `docs/LAUNCH-KIT.md` | **X + Discord setup** — handles, bio copy, banner prompt, server structure, security checklist |
 
 ---
 
-## The four concepts
+## The art direction
 
-Full write-ups in [`art/CONCEPTS.md`](art/CONCEPTS.md). Short version:
+**Shipped: Quantum Dawgs.** Heavy black ink outlines drawn with a steady hand, two tones per
+element with light fixed upper-left, saturated palette, cosmic backgrounds. Traits are all
+Bodega — chopped cheese, deli cups, rope chains, puffers, lotto scratchers, do-rags.
+
+Four alternatives are written up in [`art/CONCEPTS.md`](art/CONCEPTS.md) and all reuse the
+same 125 layer definitions:
 
 | | Concept | One-liner | Trade-off |
 |---|---|---|---|
-| 01 | **Crayon Dawgs** | The proven house style, but dogs | Fastest, safest — closest to "clone" |
-| 02 | **Bodega Dawgs** | Corner-store street dogs with a whole personality | Best narrative, regional humor, slower |
-| 03 | **GameDawg** | 32×32 pixel dogs | Perfect alignment by construction, crowded category |
-| 04 | **Puffy Dawgs** | Soft vinyl-toy sticker dogs | Looks expensive, hardest to keep consistent |
+| 01 | **Crayon Dawgs** | The pumpkets house style, but dogs | Safer read for a pure degen audience |
+| 02 | **Bodega Dawgs** | Corner-store street dogs | Its trait list is what shipped |
+| 03 | **GameDawg** | 32x32 pixel dogs | Lives on as the 11-piece `pixel-mode` tier |
+| 04 | **Puffy Dawgs** | Soft vinyl-toy sticker dogs | Merch language, not supply |
 
-**Recommendation: Concept 1's render style + Concept 2's trait content.** In-family art,
-out-of-family personality. Hold GameDawg as an 11-piece tier inside the 1,111 (already wired
-as the `pixel-mode` overlay). Use Puffy for merch renders, not for supply.
+`npm run art -- crayon` re-renders the whole collection in Concept 1 in about 20 seconds.
 
-All four use the **same** 125 layer definitions — you swap one style block in
-`art/prompts/00-style.md` and nothing else changes.
+### Why the art is drawn in code
+
+**Alignment.** Every hat lands on the same skull because it's the same arithmetic — no anchor
+sheet, no reference images, no drift, no hand-nudging 15-20% of the output, which is normally
+the biggest time sink in a generative launch. The whole set also redraws in ~20 seconds, and
+it's deterministic: same seed, byte-identical PNGs.
+
+**The trade-off, honestly:** procedural art is geometry. It can't do texture, incidental
+detail, or the imperfections a human illustrator brings, so next to hand-drawn work these
+read as simpler. If the collection takes off, having an illustrator redraw the 125 layers
+against the same anchors and filenames is a drop-in upgrade — the generator doesn't care
+where the PNGs came from. The prompt packs in `art/prompts/` stay valid for exactly that.
 
 ---
 
@@ -91,9 +119,9 @@ z00  Background    14   required   ← drawn first, behind
 `14 × 9 × 12 × 10 × 19 × 9 × 12 × 17 × 10 × 13 × 7` = **479,975,932,800** combinations for a
 supply of 1,111.
 
-**The one rule:** generate the plain base body first, build `art/anchor-sheet.png` from it,
-and attach that reference to every subsequent prompt. Skipping it is the #1 cause of
-misaligned collections.
+**The one rule:** every layer sits on the same canvas with the subject on the same pixel
+anchors. `draw-layers.js` gets that for free because it's all one coordinate system. If you
+swap in prompted or hand-drawn layers instead, this is the part you have to enforce yourself.
 
 ### Rarity
 
@@ -115,20 +143,20 @@ below its weight; use `forced` when you need a specific count.
 
 ---
 
-## Producing the art
+## Replacing the art with drawn or prompted layers
 
-1. Open [`art/prompts/00-style.md`](art/prompts/00-style.md), pick a concept, paste its
-   **ACTIVE STYLE BLOCK** as the first message in a fresh ChatGPT conversation.
-2. Open the **Prompt Lab** (`lab.html`) or the markdown packs in `art/prompts/`.
-3. Hit **copy whole batch** on a category, paste it as the second message.
-4. One category per conversation — the model holds style far better that way.
-5. Save the outputs as `<name>#<weight>.png` into `generator/layers/<nn>-<category>/`.
+Nothing downstream is coupled to how the PNGs were made. To swap in your own:
 
-Do `02-fur` **first** — you need the base body before anything else can align to it.
+1. Match the canvas and anchors in [`art/LAYER-SPEC.md`](art/LAYER-SPEC.md) — 2048x2048,
+   transparent, subject on the same pixel anchors.
+2. Save as `<name>#<weight>.png` into `generator/layers/<nn>-<category>/`, using the exact
+   filenames the generator already uses.
+3. `npm run preview -- 36` to check, then `npm run build -- 1111`.
 
-Realistic expectation: image models drift. Budget for hand-nudging 15–20% of layers. That's
-an afternoon, not a week — and attaching the anchor sheet to every prompt is what keeps it
-from being a week.
+If you want an image model to do it, the **Prompt Lab** (`lab.html`) has all 125 prompts with
+one-click batch copy. Do `02-fur` first — you need the base body before anything else can
+align to it — and attach an anchor sheet to every prompt, or you'll be hand-fixing alignment
+on roughly a fifth of the output.
 
 ---
 

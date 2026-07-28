@@ -33,14 +33,14 @@
     <h1>Pump<span class="word-2">Dawgs</span></h1>
     <p class="hero-sub">Dogs. On Solana. That's the whole pitch.</p>
     <p class="lead">
-      An NFT collection of <strong class="lime">1,111</strong> hand-drawn dawgs with a token
-      wired to it — two assets, one dog, same community. This site is the working plan:
-      four art directions, the full 125-layer generative system, and every prompt you need
-      to mass-produce the art.
+      An NFT collection of <strong class="lime">1,111</strong> dawgs with a token wired to
+      it — two assets, one dog, same community. Heavy ink, cel shading, cosmic backgrounds.
+      All <strong class="lime">125 layers are drawn</strong> and the collection builds
+      end-to-end today.
     </p>
     <div class="hero-cta">
-      <a href="lab.html" class="btn btn-primary">Open the Prompt Lab</a>
-      <a href="#concepts" class="btn">See the 4 concepts</a>
+      <a href="#layers" class="btn btn-primary">How it's built</a>
+      <a href="lab.html" class="btn">Prompt Lab</a>
     </div>
     <div class="pack" id="pack"></div>
   </div>
@@ -118,19 +118,47 @@
 <section id="concepts" style="background:var(--bg-2); border-block:1px solid var(--line)">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">Step 1 — pick a look</p>
-      <h2>Four concept directions</h2>
+      <p class="eyebrow">Step 1 — the look</p>
+      <h2>The art direction</h2>
       <p class="lead">
-        Each one is a complete art direction with a locked style block. Whichever you pick,
-        the same 125 layer definitions and the same generator produce it — you swap one
-        text block in <code class="inline">art/prompts/00-style.md</code> and nothing else changes.
+        Heavy black ink, cel shading, saturated colour, cosmic backgrounds — Quantum
+        Cats' confidence, but dogs. The other four directions below were the alternatives;
+        each is a drop-in swap, because they all share the same 125 layer definitions.
       </p>
     </div>
 
+    <article class="concept pick shipped">
+      <span class="badge">Shipped</span>
+      <div class="shipped-in">
+        <div>
+          <div class="num">00</div>
+          <h3>Quantum Dawgs</h3>
+          <p class="oneliner">Quantum Cats' ink-and-cel confidence, but dogs.</p>
+          <div class="swatches">
+            <i style="background:#e04a34"></i><i style="background:#ffc93d"></i>
+            <i style="background:#b8e635"></i><i style="background:#3fc7c0"></i>
+            <i style="background:#8b5cf6"></i><i style="background:#ff3d8b"></i>
+          </div>
+          <dl>
+            <dt>Render</dt><dd>20px black outlines drawn with a steady hand. Two tones per element, light fixed upper-left. Big eyes with a hard catchlight.</dd>
+            <dt>Traits</dt><dd>All Bodega — chopped cheese, deli cups, rope chains, puffers, lotto scratchers, do-rags.</dd>
+            <dt>Why</dt><dd>Reads as <em>made</em>, not as a shitpost. Competing on craft instead of on being disposable, and it survives a 64px crop better than crayon art.</dd>
+            <dt>Risk</dt><dd>The "ugly on purpose" meta rewards low-effort art. If the audience you want is pure degen, Crayon is the safer read.</dd>
+          </dl>
+        </div>
+        <div class="shipped-art">
+          <img src="showcase/hero-3.png" alt="a black lab dawg in a tuxedo and crown with laser eyes" loading="lazy">
+          <img src="showcase/hero-6.png" alt="a poodle dawg in a do-rag and gold chain smoking a cigar" loading="lazy">
+          <img src="showcase/hero-2.png" alt="a shiba dawg in shades and a hoodie" loading="lazy">
+          <img src="showcase/hero-5.png" alt="a cream dawg in a bucket hat with heart eyes" loading="lazy">
+        </div>
+      </div>
+    </article>
+
+    <p class="eyebrow" style="margin:38px 0 14px">The alternatives</p>
     <div class="grid grid-4">
 
-      <article class="concept pick">
-        <span class="badge">Recommended</span>
+      <article class="concept">
         <div class="num">01</div>
         <h3>Crayon Dawgs</h3>
         <p class="oneliner">The proven house style, but dogs, and dumber.</p>
@@ -192,12 +220,11 @@
     </div>
 
     <div class="callout" style="margin-top:26px">
-      <strong>The actual recommendation:</strong> ship <strong>Concept 1's render style</strong>
-      with <strong>Concept 2's trait content</strong> — in-family art, out-of-family personality.
-      Hold GameDawg as an 11-piece special tier inside the 1,111 (it's already wired up as the
-      <code class="inline">pixel-mode</code> overlay). Use Puffy for merch renders and the hero
-      image, not for supply. Full write-up in
-      <a href="art/CONCEPTS.md">art/CONCEPTS.md</a>.
+      <strong>Want a different look?</strong> <code class="inline">npm run art -- crayon</code>
+      re-renders all 125 layers in the Concept 1 marker style in about 20 seconds. Nothing
+      else changes — same layer definitions, same generator, same metadata. GameDawg already
+      lives inside the collection as an 11-piece <code class="inline">pixel-mode</code> tier.
+      Full write-up in <a href="art/CONCEPTS.md">art/CONCEPTS.md</a>.
     </div>
   </div>
 </section>
@@ -300,19 +327,17 @@ none<span class="g">#180</span>.png           <span class="c">no hat</span></pre
       <p class="eyebrow">Step 3 — mass-produce it</p>
       <h2>From zero to minted</h2>
       <p class="lead">
-        Ten steps. The generator already runs end-to-end on placeholder art, so you can test
-        rarity, exclusions and metadata <em>today</em>, before a single real drawing exists.
+        The art is done. Everything below is either already run or a one-line command —
+        the only steps left that need a human are your wallet, a domain, and the mint.
       </p>
     </div>
 
     <div class="steps">
-      <div class="step"><h3>Pick a concept</h3><p>Paste its style block into <code class="inline">art/prompts/00-style.md</code>. That block gets prepended to all 125 prompts.</p></div>
-      <div class="step"><h3>Generate the base body first</h3><p>One plain dog, no traits, blank face. Build <code class="inline">art/anchor-sheet.png</code> from it — this is your alignment reference for everything else.</p></div>
-      <div class="step"><h3>Run the prompt packs</h3><p>Eleven batches in the <a href="lab.html">Prompt Lab</a>. Copy a whole category at once, paste into ChatGPT, attach the anchor sheet.</p></div>
-      <div class="step"><h3>Drop PNGs into the layer folders</h3><p><code class="inline">generator/layers/07-headwear/crown#5.png</code> — the <code class="inline">#5</code> is the rarity weight.</p></div>
-      <div class="step"><h3>Fill in the None layers</h3><p><code class="inline">npm run make-none</code> writes a real transparent PNG for every optional category. A missing file silently breaks your rarity.</p></div>
-      <div class="step"><h3>Preview and fix</h3><p><code class="inline">npm run preview -- 60</code> gives you a contact sheet. Anything ugly becomes an exclusion rule. Repeat until clean.</p></div>
+      <div class="step done"><h3>Draw the 125 layers</h3><p><code class="inline">npm run art</code> — every layer rendered in code, so alignment is exact by construction. Swap to the marker style with <code class="inline">npm run art -- crayon</code>.</p></div>
+      <div class="step done"><h3>Preview and fix</h3><p><code class="inline">npm run preview -- 36</code> gives a contact sheet. Anything that looks wrong becomes an exclusion rule in <code class="inline">config.js</code>.</p></div>
+      <div class="step done"><h3>Tune rarity</h3><p>Rename a file to change its weight. Pin exact counts for headline traits in <code class="inline">config.forced</code>.</p></div>
       <div class="step"><h3>Build the collection</h3><p><code class="inline">npm run build -- 1111</code> → images, Metaplex metadata, and a rarity report. Deterministic: same seed, same collection, every time.</p></div>
+      <div class="step"><h3>Set your wallet + domain</h3><p><code class="inline">generator/config.js</code> → <code class="inline">creators</code> and <code class="inline">externalUrl</code>. Every metadata file carries these, so do it before you upload.</p></div>
       <div class="step"><h3>Devnet first</h3><p><code class="inline">sugar launch</code> against devnet. Mint five to yourself. Confirm they actually render on a marketplace before you spend real SOL.</p></div>
       <div class="step"><h3>Mainnet</h3><p>Same command, mainnet RPC. Set your wallet in <code class="inline">generator/config.js</code> → <code class="inline">creators</code> first — the build warns you if you forget.</p></div>
       <div class="step"><h3>Token</h3><p>Launch <span data-brand="ticker">$DAWGS</span> separately. Same brand, same Discord, no promises you can't keep.</p></div>
@@ -321,11 +346,11 @@ none<span class="g">#180</span>.png           <span class="c">no hat</span></pre
     <div class="grid grid-2" style="margin-top:34px">
       <div>
         <h3 style="margin-bottom:12px">Try it right now</h3>
-        <pre id="quickstart"><span class="c"># placeholder art for all 125 layers,</span>
-<span class="c"># then a real 1,111-piece build</span>
+        <pre id="quickstart"><span class="c"># draws all 125 layers, then builds</span>
+<span class="c"># the full 1,111-piece collection</span>
 cd generator
 npm install
-npm run stub
+npm run art
 npm run preview -- 36
 npm run build -- 1111</pre>
         <button class="btn btn-sm" data-copy-target="#quickstart" style="margin-top:12px">copy commands</button>
@@ -339,8 +364,9 @@ npm run build -- 1111</pre>
   _dna.txt      <span class="c">every combination</span>
   _preview.png  <span class="c">contact sheet</span></pre>
         <p class="dim" style="font-size:.9rem;margin-top:12px">
-          Verified: 1,111 unique combinations out of 479,975,932,800 possible, with
-          forced counts landing exactly — 3 laser eyes, 11 crowns, 7 ghosts, 11 pixel dawgs.
+          Verified: 1,111 unique combinations out of 479,975,932,800 possible, with forced
+          counts landing exactly — 3 laser eyes, 11 crowns, 7 ghosts, 11 pixel dawgs.
+          Deterministic: same seed, byte-identical output, every time.
         </p>
       </div>
     </div>
@@ -417,16 +443,19 @@ npm run build -- 1111</pre>
     </details>
 
     <details class="faq">
-      <summary>Can ChatGPT really make all 125 layers?</summary>
+      <summary>Why is the art drawn in code instead of by an image model?</summary>
       <div class="body">
-        <p>It can make all 125 <em>drafts</em>. Expect to hand-nudge 15–20% of them for alignment — image models drift on position and scale even with a reference attached. That's an afternoon in any editor that can move a PNG, not a lost week.</p>
-        <p>The two things that cut rework the most: attach the anchor sheet to every prompt, and generate one category per conversation so the model keeps the style in context.</p>
+        <p><strong>Alignment.</strong> Every hat lands on the same skull because it's the same arithmetic. Prompted layers drift on position and scale even with a reference image attached, and you end up hand-nudging 15–20% of them — normally the single biggest time sink in a generative launch. Here that number is zero.</p>
+        <p>It also means the whole set redraws in about 20 seconds. Change a colour, a shape, or the entire style and re-run — iterating on 125 prompted images would take days per pass.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>What if the layers don't line up?</summary>
-      <div class="body"><p>Generate the trait on top of the base body instead of alone, then mask the body out afterwards. Slower per layer, but alignment is perfect by construction because the model can see exactly where the head is.</p></div>
+      <summary>What's the catch with procedural art?</summary>
+      <div class="body">
+        <p>It's geometry, so it can't do texture, incidental detail, or the small imperfections a human illustrator brings. Next to hand-drawn work these read as simpler — a real illustrator would beat this.</p>
+        <p>That's a drop-in upgrade if the collection takes off: have someone redraw the 125 layers against the same anchors and filenames. The generator doesn't care where the PNGs came from, and the prompt packs in <a href="lab.html">the Lab</a> are still there if you'd rather go the image-model route now.</p>
+      </div>
     </details>
 
     <details class="faq">

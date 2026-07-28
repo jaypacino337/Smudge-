@@ -1,20 +1,48 @@
-# PUMP DAWGS — Four Concept Directions
+# PUMP DAWGS — Concept Directions
 
 > **Naming note:** the brand string lives in exactly one place — `assets/js/brand.js` →
 > `BRAND.name`. Currently `PUMP DAWGS` / ticker `$DAWGS`. Change it there and every page,
-> every doc header, and the generator metadata follows. Spelling was taken literally from
-> "b-a-w-g-e-s"; if you meant `DAWGS`, it's a one-line edit.
+> every doc header, and the generator metadata follows.
 
-**The lineage:** pumpkets = 1,111 hand-drawn cats on Solana with a paired pump.fun token.
-The art is deliberately *bad on purpose* — thick wobbly marker lines, flat pastel fills,
-zero shading. That "a kid drew this in 40 seconds" quality is the entire moat. It reads
-instantly on a 64px timeline avatar, it's impossible to take seriously, and it's cheap to
-produce 1,111 of.
+> ## ✅ SHIPPED: Concept 0 — QUANTUM DAWGS
+>
+> **This is what's actually drawn.** All 125 layers exist as real PNGs in
+> `generator/layers/`, drawn procedurally by `generator/tools/draw-layers.js`. Run
+> `npm run art` to regenerate them, `npm run art -- crayon` for the Concept 1 look.
+> Concepts 1–4 below are kept as alternative directions.
 
-**Our job:** do the dog version without looking like a trace-over. Below are four directions,
-ranked by how defensible they are. Each one includes the exact **style block** you paste at
-the top of every ChatGPT / image-model prompt so all 110 layers come out looking like
-siblings.
+**The lineage:** pumpkets = 1,111 hand-drawn cats on Solana with a paired pump.fun token —
+crude marker art, flat pastel fills. Quantum Cats = 3,333 Bitcoin Ordinals with the opposite
+approach: confident heavy ink linework, cel shading, saturated colour, cosmic backgrounds.
+It looks *illustrated* rather than *scribbled*.
+
+**Our job:** do the dog version. Below are the directions considered; the one we shipped is
+Concept 0.
+
+---
+
+## Concept 0 — QUANTUM DAWGS  *(shipped)*
+
+**One-liner:** Quantum Cats' ink-and-cel confidence, but dogs.
+
+**Vibe:** Heavy black ink outlines (20px at 2048), drawn with a steady hand — no wobble.
+Two tones per element: a flat base colour plus one cel shadow, light fixed at the upper
+left. Saturated palette. Big expressive eyes with a hard white catchlight. Cosmic
+backgrounds — nebula, starfields, sunbursts — alongside flat brights.
+
+**Palette:** the fur set stays warm and natural (`#F5EFE3` → `#2F2F3A`), everything else goes
+loud: `#E04A34`, `#FFC93D`, `#B8E635`, `#3FC7C0`, `#8B5CF6`, `#FF3D8B`.
+
+**Why it works:** it reads as *made*, not as a shitpost. That's a different bet than
+pumpkets — you're competing on craft instead of on being disposable. It also survives a
+64px avatar crop better than crayon art does, because the shapes are cleaner.
+
+**Risk:** the "ugly on purpose" meta rewards low-effort art, and this is visibly high-effort.
+If the audience you want is pure degen, Concept 1 is the safer read.
+
+**How it's produced:** procedurally, not by an image model. Every layer is drawn by the same
+arithmetic, so alignment is exact by construction — no anchor sheet, no drift, no hand
+cleanup. See §"Why procedural" at the bottom.
 
 ---
 
@@ -136,21 +164,45 @@ subject, 3/4 chest-up crop.
 
 ---
 
-## Recommendation
+## What shipped, and why
 
-**Ship Concept 1 as the base collection, steal Concept 2's trait list.**
+**Concept 0 (Quantum Dawgs) render style + Concept 2's trait content.**
 
-That combination is the actual play. Concept 1's render style is proven, fast, and reads at
-avatar size. Concept 2's *content* — the chopped cheese, the chains, the puffers — is where
-the personality and the screenshot-ability live, and none of it requires changing the line
-style. You get in-family art with out-of-family traits.
+The traits are all Bodega: chopped cheese, deli cups, rope chains, puffers, lotto
+scratchers, do-rags. That's where the personality and the screenshot-ability live. The
+*rendering* is Quantum — heavy ink, cel shading, cosmic backgrounds — so it looks made
+rather than scribbled.
 
-Hold Concept 3 (GameDawg) as a **1/1 / special-edition tier** — 11 pixel dawgs inside the
-1,111 as the top rarity band. It's cheap to make and it's a real "holy shit" pull.
+GameDawg survives as an 11-piece tier inside the 1,111, wired up as the `pixel-mode`
+overlay in `generator/config.js` → `forced`. Puffy is the merch language, not the mint.
 
-Concept 4 is the merch language, not the mint. Use it for the plushie render and the hero
-image on the site, not for 1,111 supply.
+`npm run art -- crayon` re-renders the whole collection in the Concept 1 marker style if you
+change your mind. Nothing else has to change — same 125 layer definitions, same generator.
 
-Everything downstream in this repo (`LAYER-SPEC.md`, `prompts.json`, `generator/`) is
-written **style-agnostic** — you swap one style block in `art/prompts/00-style.md` and the
-same 110 layer definitions produce whichever concept you picked.
+---
+
+## Why procedural instead of an image model
+
+Every layer is drawn in code (`generator/tools/draw-layers.js`), not prompted. That was a
+deliberate trade:
+
+**What you give up.** Procedural art can't do texture, incidental detail, or the small
+imperfections a human illustrator brings. These dawgs are geometry — clean shapes, clean
+curves. Next to hand-drawn Quantum Cats, they read as simpler. A real illustrator would beat
+this, and if the collection takes off, hiring one to redraw the 125 layers against the same
+anchors is a drop-in upgrade — the generator doesn't care where the PNGs came from.
+
+**What you get.**
+- **Alignment is exact by construction.** Every hat lands on the same skull because it's the
+  same arithmetic. No anchor sheet, no reference images, no drift, no hand-nudging 20% of
+  the output — which is normally the single biggest time sink in a generative launch.
+- **The whole set redraws in ~20 seconds.** Change a palette, a shape, the line weight, or
+  the entire style, and re-run. Iterating on 125 prompted images would take days per pass.
+- **Deterministic.** Same seed, byte-identical PNGs, forever. You can always reproduce the
+  collection from source.
+- **The style is a parameter.** `quantum` and `crayon` are two presets in
+  `generator/tools/lib/draw.js`. Adding a third is a config block, not a re-draw.
+
+The prompt packs in `art/prompts/` are still there and still valid — if you'd rather have an
+image model draw the layers, the specs, anchors and filenames are unchanged. Drop the PNGs
+into `generator/layers/` with the same names and everything downstream works identically.

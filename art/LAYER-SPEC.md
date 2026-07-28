@@ -3,6 +3,12 @@
 Everything here is style-agnostic. Pick a concept from `CONCEPTS.md`, drop its style block
 into `art/prompts/00-style.md`, and this same spec produces that collection.
 
+> **Already done.** All 125 layers exist, drawn procedurally by
+> `generator/tools/draw-layers.js` — run `npm run art`. Because that code works in one
+> coordinate system, §1 below (the anchor sheet) is handled for free. Read §1 anyway if you
+> plan to replace any layer with a prompted or hand-drawn one; it's the rule you'd then have
+> to enforce by hand. §§2–8 apply either way.
+
 ---
 
 ## 1. The one rule that makes or breaks the whole thing
