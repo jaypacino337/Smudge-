@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Lab — PUMP BAWGES</title>
+<meta name="description" content="All 125 layer prompts for the PUMP BAWGES generative collection. Copy one, or copy a whole batch straight into ChatGPT.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><span class="paw">🐾</span><span data-brand="name">PUMP BAWGES</span></a>
+    <div class="nav-links">
+      <a href="index.html#concepts">Concepts</a>
+      <a href="index.html#layers">Layers</a>
+      <a href="index.html#build">Build</a>
+      <a href="index.html" class="btn btn-sm">← Back</a>
+    </div>
+  </div>
+</nav>
+
+<section style="padding:56px 0 0">
+  <div class="wrap">
+    <p class="eyebrow">The prompt library</p>
+    <h2>Prompt Lab</h2>
+    <p class="lead" style="margin-top:14px">
+      All <strong class="lime">125</strong> layer prompts, ready to paste. Copy one at a time,
+      or grab a whole category as a single batch message.
+    </p>
+
+    <div class="callout" style="margin-top:22px">
+      <strong>Read this before your first batch.</strong>
+      Open <a href="art/prompts/00-style.md">00-style.md</a>, copy the <em>ACTIVE STYLE BLOCK</em>,
+      and paste it as the <em>first</em> message in a fresh ChatGPT conversation. Then paste a
+      batch from below as the second message. One category per conversation — the model holds
+      style far better that way. Attach <code class="inline">art/anchor-sheet.png</code> to every
+      message once you have it.
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="lab-toolbar">
+    <input type="search" id="search" placeholder="search 125 prompts — try 'hat', 'gold', 'legendary'…" aria-label="Search prompts">
+    <span class="mono dim" id="count" style="font-size:.74rem;letter-spacing:.1em"></span>
+  </div>
+  <div class="chips" id="chips" style="margin-bottom:30px"></div>
+
+  <div id="lab"></div>
+</div>
+
+<footer style="margin-top:60px">
+  <div class="wrap foot">
+    <a class="logo" href="index.html"><span class="paw">🐾</span><span data-brand="name">PUMP BAWGES</span></a>
+    <a href="art/prompts/">Markdown packs</a>
+    <a href="art/LAYER-SPEC.md">Layer Spec</a>
+    <span class="fine">Prompts generated from art/prompts.json — edit there, not here.</span>
+  </div>
+</footer>
+
+<script src="assets/js/brand.js"></script>
+<script src="assets/js/prompts-data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

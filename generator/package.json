@@ -1,0 +1,20 @@
+{
+  "name": "pump-bawges-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generative art engine for the PUMP BAWGES Solana NFT collection",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "preview": "node build.js --preview",
+    "dry": "node build.js --dry",
+    "stub": "node tools/make-stubs.js",
+    "make-none": "node tools/make-none.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.65"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
