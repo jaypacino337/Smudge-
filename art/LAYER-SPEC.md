@@ -1,4 +1,4 @@
-# PUMP BAWGES — Layering & Generation Spec
+# PUMP DAWGS — Layering & Generation Spec
 
 Everything here is style-agnostic. Pick a concept from `CONCEPTS.md`, drop its style block
 into `art/prompts/00-style.md`, and this same spec produces that collection.
@@ -161,7 +161,7 @@ you if you ever slash the layer set.
 forced: [
   { trait: 'eyes:laser',        count: 3  },
   { trait: 'headwear:crown',    count: 11 },
-  { trait: 'overlay:pixel-mode', count: 11 },  // the GameBawg 1/1 tier
+  { trait: 'overlay:pixel-mode', count: 11 },  // the GameDawg 1/1 tier
 ]
 ```
 
@@ -174,9 +174,9 @@ the image filename. `build.js` emits these automatically.
 
 ```json
 {
-  "name": "Pump Bawg #1",
-  "symbol": "BAWG",
-  "description": "A collection of 1,111 pump bawges.",
+  "name": "Pump Dawg #1",
+  "symbol": "DAWGS",
+  "description": "A collection of 1,111 pump dawgs.",
   "image": "1.png",
   "attributes": [
     { "trait_type": "Background", "value": "Sky" },

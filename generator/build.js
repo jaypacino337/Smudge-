@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * PUMP BAWGES — generative build engine
+ * PUMP DAWGS — generative build engine
  *
  *   npm run build -- 1111       full collection: images + metadata + rarity report
  *   npm run build -- 50 --dry   no image compositing, just DNA/metadata/rarity (fast)
@@ -299,7 +299,7 @@ async function main() {
     const sheet = await contactSheet(canvasLib, cats, items, n);
     const p = path.join(OUT, '_preview.png');
     fs.writeFileSync(p, sheet.toBuffer('image/png'));
-    console.log(`  contact sheet → output/_preview.png  (${n} bawges)`);
+    console.log(`  contact sheet → output/_preview.png  (${n} dawgs)`);
     console.log(`  eyeball it, then add exclusion rules to config.js for anything broken.\n`);
     return;
   }

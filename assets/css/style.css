@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PUMP BAWGES — site styles
+   PUMP DAWGS — site styles
    Dark marketplace chrome + hand-drawn meme energy.
    ========================================================================== */
 
@@ -158,6 +158,36 @@ h3 { font-size: 1.25rem; font-weight: 800; }
 }
 .btn-primary:hover { background: #d8ff6a; }
 .btn-sm { padding: 8px 15px; font-size: .7rem; }
+
+/* a social link with no URL yet — see brand.js */
+.btn.pending { opacity: .5; cursor: default; }
+.btn.pending:hover { transform: none; border-color: var(--line-hi); }
+.soon {
+  font-size: .58rem;
+  letter-spacing: .16em;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--line);
+  color: var(--ink-faint);
+}
+
+/* ---------- socials ---------- */
+.socials { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.social-card {
+  flex: 1 1 260px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 22px 24px;
+}
+.social-card h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.social-card .handle {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--lime);
+  letter-spacing: .04em;
+}
+.social-card p { color: var(--ink-dim); font-size: .93rem; margin: 10px 0 16px; }
 
 /* ---------- hero ---------- */
 .hero {

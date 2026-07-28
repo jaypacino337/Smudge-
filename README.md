@@ -1,14 +1,14 @@
-# PUMP BAWGES 🐾
+# PUMP DAWGS 🐾
 
-**1,111 hand-drawn bawges on Solana, with a paired token.**
+**1,111 hand-drawn dawgs on Solana, with a paired token.**
 
 This repo is the whole project: the site, four art directions, a 125-layer generative art
 system, the complete prompt library for mass-producing the art with ChatGPT, and a working
 generator that outputs mint-ready images + Metaplex metadata.
 
-> **Naming:** `PUMP BAWGES` / `$BAWG`, taken literally from "b-a-w-g-e-s". If you meant
-> `BAWGS`, change `BRAND.name` in `assets/js/brand.js` and `name`/`symbol` in
-> `generator/config.js` — nothing else hardcodes it.
+> **Naming:** `PUMP DAWGS`, ticker `$DAWGS`. Set in exactly two places — `BRAND` in
+> `assets/js/brand.js` (site) and `name`/`symbol` in `generator/config.js` (metadata).
+> Nothing else hardcodes it.
 
 ---
 
@@ -45,6 +45,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 | `art/prompts/` | Generated paste-ready batch files, one per category |
 | `art/build-prompt-packs.js` | Regenerates `art/prompts/*.md` + `assets/js/prompts-data.js` from the JSON |
 | `generator/` | The generative engine — weighted rarity, exclusions, DNA dedupe, metadata |
+| `docs/LAUNCH-KIT.md` | **X + Discord setup** — handles, bio copy, banner prompt, server structure, security checklist |
 
 ---
 
@@ -54,13 +55,13 @@ Full write-ups in [`art/CONCEPTS.md`](art/CONCEPTS.md). Short version:
 
 | | Concept | One-liner | Trade-off |
 |---|---|---|---|
-| 01 | **Crayon Bawges** | The proven house style, but dogs | Fastest, safest — closest to "clone" |
-| 02 | **Bodega Bawges** | Corner-store street dogs with a whole personality | Best narrative, regional humor, slower |
-| 03 | **GameBawg** | 32×32 pixel dogs | Perfect alignment by construction, crowded category |
-| 04 | **Puffy Bawges** | Soft vinyl-toy sticker dogs | Looks expensive, hardest to keep consistent |
+| 01 | **Crayon Dawgs** | The proven house style, but dogs | Fastest, safest — closest to "clone" |
+| 02 | **Bodega Dawgs** | Corner-store street dogs with a whole personality | Best narrative, regional humor, slower |
+| 03 | **GameDawg** | 32×32 pixel dogs | Perfect alignment by construction, crowded category |
+| 04 | **Puffy Dawgs** | Soft vinyl-toy sticker dogs | Looks expensive, hardest to keep consistent |
 
 **Recommendation: Concept 1's render style + Concept 2's trait content.** In-family art,
-out-of-family personality. Hold GameBawg as an 11-piece tier inside the 1,111 (already wired
+out-of-family personality. Hold GameDawg as an 11-piece tier inside the 1,111 (already wired
 as the `pixel-mode` overlay). Use Puffy for merch renders, not for supply.
 
 All four use the **same** 125 layer definitions — you swap one style block in
@@ -103,7 +104,7 @@ common 100 · uncommon 45 · rare 15 · epic 5 · legendary 1
 ```
 
 Exact counts for headline traits are pinned in `config.forced` and verified in the build:
-**3** laser eyes, **11** crowns, **7** ghosts, **11** pixel bawges.
+**3** laser eyes, **11** crowns, **7** ghosts, **11** pixel dawgs.
 
 ### Exclusions
 
@@ -154,9 +155,28 @@ Two things to decide before you upload, because neither is changeable after:
 
 ---
 
+## X and Discord
+
+See [`docs/LAUNCH-KIT.md`](docs/LAUNCH-KIT.md) — handles to grab, profile copy, the banner
+prompt, the Discord channel/role structure, and the security checklist.
+
+I can't create the accounts; X and Discord both require a human at signup, and automating it
+would get them banned on day one. Everything else is written and ready — signup is about 20
+minutes with that file open beside you.
+
+Once they exist, paste the URLs into `assets/js/brand.js` → `links`. That's the only edit;
+every link on the site reads from that object, and anything still set to `'#'` renders
+greyed-out with a "soon" tag rather than shipping as a dead link.
+
+**Two things to do before you invite anyone:** authenticator-app 2FA on X (these accounts get
+SIM-swapped), and Discord's full moderation-2FA + permissions checklist. A compromised NFT
+Discord posting a fake mint link drains your holders' wallets, not yours.
+
+---
+
 ## The token
 
-`$BAWG` is a separate launch that shares the brand and the community. The NFT is the identity
+`$DAWGS` is a separate launch that shares the brand and the community. The NFT is the identity
 and the scarce asset; the token is the low-barrier onramp for people who won't pay the floor.
 
 Don't launch both at once — it splits attention and liquidity. And be careful what you promise:

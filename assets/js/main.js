@@ -1,11 +1,11 @@
 /* =============================================================================
-   PUMP BAWGES — site behaviour
+   PUMP DAWGS — site behaviour
 
-   Includes a parametric SVG bawg so the site has real art from day one. Once the
+   Includes a parametric SVG dawg so the site has real art from day one. Once the
    generated PNGs exist, swap `renderPack()` to point at output/images/ instead.
    ============================================================================= */
 
-/* --- Parametric bawg ------------------------------------------------------ */
+/* --- Parametric dawg ------------------------------------------------------ */
 const HATS = {
   none: '',
   cap: `<path d="M42 68 Q100 14 158 68 L156 76 Q100 62 44 76 Z" fill="HAT" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round"/>
@@ -42,11 +42,11 @@ const MOUTHS = {
 };
 
 /**
- * Build one bawg as an inline SVG string.
+ * Build one dawg as an inline SVG string.
  * Every element here maps 1:1 to a layer category in art/prompts.json — this is the
  * same z-order the generator uses, just drawn in vectors instead of composited PNGs.
  */
-function bawgSVG(o = {}) {
+function dawgSVG(o = {}) {
   const fur = o.fur || '#e8b96a';
   const shirt = o.shirt || '#5ac8fa';
   const hat = HATS[o.hat || 'none'].replace(/HAT/g, o.hatColor || '#ff6b35');
@@ -58,7 +58,7 @@ function bawgSVG(o = {}) {
     : `<ellipse cx="46" cy="108" rx="16" ry="36" fill="${fur}" stroke="#1a1a1a" stroke-width="5" transform="rotate(-10 46 108)"/>
        <ellipse cx="154" cy="108" rx="16" ry="36" fill="${fur}" stroke="#1a1a1a" stroke-width="5" transform="rotate(10 154 108)"/>`;
 
-  return `<svg viewBox="0 0 200 215" role="img" aria-label="a pump bawg">
+  return `<svg viewBox="0 0 200 215" role="img" aria-label="a pump dawg">
     ${o.bg ? `<rect width="200" height="215" rx="14" fill="${o.bg}"/>` : ''}
     <!-- 04 outfit — starts above the head's lower edge (y=148) so the neck actually connects -->
     <path d="M30 215 Q30 143 100 143 Q170 143 170 215 Z" fill="${shirt}" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round"/>
@@ -87,7 +87,7 @@ const PACK = [
 
 function renderPack() {
   const host = document.getElementById('pack');
-  if (host) host.innerHTML = PACK.map(b => bawgSVG(b)).join('');
+  if (host) host.innerHTML = PACK.map(b => dawgSVG(b)).join('');
 }
 
 /* --- Copy to clipboard ---------------------------------------------------- */

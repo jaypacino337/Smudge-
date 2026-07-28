@@ -1,9 +1,9 @@
-# PUMP BAWGES — Four Concept Directions
+# PUMP DAWGS — Four Concept Directions
 
 > **Naming note:** the brand string lives in exactly one place — `assets/js/brand.js` →
-> `BRAND.name`. Currently `PUMP BAWGES` / ticker `$BAWG`. Change it there and every page,
+> `BRAND.name`. Currently `PUMP DAWGS` / ticker `$DAWGS`. Change it there and every page,
 > every doc header, and the generator metadata follows. Spelling was taken literally from
-> "b-a-w-g-e-s"; if you meant `BAWGS`, it's a one-line edit.
+> "b-a-w-g-e-s"; if you meant `DAWGS`, it's a one-line edit.
 
 **The lineage:** pumpkets = 1,111 hand-drawn cats on Solana with a paired pump.fun token.
 The art is deliberately *bad on purpose* — thick wobbly marker lines, flat pastel fills,
@@ -18,7 +18,7 @@ siblings.
 
 ---
 
-## Concept 1 — CRAYON BAWGES  *(the safe money)*
+## Concept 1 — CRAYON DAWGS  *(the safe money)*
 
 **One-liner:** The pumpkets house style, but dogs, and dumber.
 
@@ -48,9 +48,9 @@ subject, 3/4 chest-up crop.
 
 ---
 
-## Concept 2 — BODEGA BAWGES  *(the most personality)*
+## Concept 2 — BODEGA DAWGS  *(the most personality)*
 
-**One-liner:** Corner-store street dogs. Every bawg looks like it has a guy.
+**One-liner:** Corner-store street dogs. Every dawg looks like it has a guy.
 
 **Vibe:** Same crude hand-drawn line as Concept 1, but the *content* is all NYC bodega —
 chopped cheese, deli cups, lotto scratchers, gold rope chains, do-rags, puffer jackets,
@@ -61,7 +61,7 @@ stickers with a white die-cut border.
 **Palette:** grittier — awning red `#D6402F`, shutter grey `#7A7F84`, lotto yellow `#F5C518`,
 bodega green `#1F7A4C`, ink `#141414`.
 
-**Why it works:** Trait *narrative* is the thing people screenshot. "The bawg with the
+**Why it works:** Trait *narrative* is the thing people screenshot. "The dawg with the
 chopped cheese and the broken chain" is a sellable identity in a way "blue background, red
 hat" is not. Gives the Discord something to riff on daily.
 
@@ -78,7 +78,7 @@ Transparent background. Centered subject, 3/4 chest-up crop.
 
 ---
 
-## Concept 3 — GAMEBAWG  *(the cheapest to scale)*
+## Concept 3 — GAMEDAWGS  *(the cheapest to scale)*
 
 **One-liner:** 32×32 pixel dogs on a candy-colored DMG palette.
 
@@ -107,7 +107,7 @@ Transparent background. Subject centered in frame.
 
 ---
 
-## Concept 4 — PUFFY BAWGES  *(the premium swing)*
+## Concept 4 — PUFFY DAWGS  *(the premium swing)*
 
 **One-liner:** Soft vinyl-toy dogs rendered as puffed-up glossy stickers.
 
@@ -145,7 +145,7 @@ avatar size. Concept 2's *content* — the chopped cheese, the chains, the puffe
 the personality and the screenshot-ability live, and none of it requires changing the line
 style. You get in-family art with out-of-family traits.
 
-Hold Concept 3 (GameBawg) as a **1/1 / special-edition tier** — 11 pixel bawges inside the
+Hold Concept 3 (GameDawg) as a **1/1 / special-edition tier** — 11 pixel dawgs inside the
 1,111 as the top rarity band. It's cheap to make and it's a real "holy shit" pull.
 
 Concept 4 is the merch language, not the mint. Use it for the plushie render and the hero

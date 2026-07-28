@@ -1,10 +1,10 @@
 # 00 — STYLE BLOCK  ⚠️ EDIT THIS FILE FIRST
 
-This is the single source of truth for how PUMP BAWGES looks. It gets prepended to **every**
+This is the single source of truth for how PUMP DAWGS looks. It gets prepended to **every**
 prompt in every batch. Swap the block below for a different concept from `../CONCEPTS.md` and
 the entire collection changes style without touching a single layer definition.
 
-Currently set to: **Concept 1 — CRAYON BAWGES** (with Concept 2's trait content).
+Currently set to: **Concept 1 — CRAYON DAWGS** (with Concept 2's trait content).
 
 ---
 
@@ -33,7 +33,7 @@ OUTPUT RULES — apply to every image, no exceptions:
 
 Uncomment one and replace the block above.
 
-<details><summary>Concept 2 — BODEGA BAWGES</summary>
+<details><summary>Concept 2 — BODEGA DAWGS</summary>
 
 ```
 STYLE: Crude hand-drawn marker illustration, NYC bodega street aesthetic. Thick black
@@ -42,7 +42,7 @@ die-cut border. Deliberately unpolished, streetwear-adjacent, slightly grimy pal
 ```
 </details>
 
-<details><summary>Concept 3 — GAMEBAWG</summary>
+<details><summary>Concept 3 — GAMEDAWGS</summary>
 
 ```
 STYLE: 32x32 pixel art sprite upscaled 64x with nearest-neighbor. No anti-aliasing, no blur,
@@ -53,7 +53,7 @@ Note: when using this style, ignore the fine pixel anchors in the layer prompts 
 every anchor to the nearest 64px block instead.
 </details>
 
-<details><summary>Concept 4 — PUFFY BAWGES</summary>
+<details><summary>Concept 4 — PUFFY DAWGS</summary>
 
 ```
 STYLE: Soft 3D vinyl toy render, puffy rounded forms, matte surface with one soft specular

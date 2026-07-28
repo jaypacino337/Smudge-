@@ -1,8 +1,8 @@
 {
-  "name": "pump-bawges-generator",
+  "name": "pump-dawgs-generator",
   "version": "1.0.0",
   "private": true,
-  "description": "Generative art engine for the PUMP BAWGES Solana NFT collection",
+  "description": "Generative art engine for the PUMP DAWGS Solana NFT collection",
   "main": "build.js",
   "scripts": {
     "build": "node build.js",

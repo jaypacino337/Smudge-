@@ -1,5 +1,5 @@
 /**
- * PUMP BAWGES — generator config
+ * PUMP DAWGS — generator config
  *
  * Rarity weights live in the FILENAMES (`crown#5.png`). This file holds everything a
  * filename can't express: draw order, exclusion rules, forced counts, and metadata.
@@ -7,9 +7,9 @@
 
 module.exports = {
   // ─── Collection ────────────────────────────────────────────────────────────
-  name: 'Pump Bawg',
-  symbol: 'BAWG',
-  description: 'A collection of 1,111 pump bawges.',
+  name: 'Pump Dawg',
+  symbol: 'DAWGS',
+  description: 'A collection of 1,111 pump dawgs.',
   supply: 1111,
   startIndex: 1,                       // first token is #1 (use 0 if you prefer 0-indexed)
 
@@ -24,7 +24,7 @@ module.exports = {
   creators: [
     { address: 'REPLACE_WITH_YOUR_SOLANA_WALLET', share: 100 },
   ],
-  externalUrl: 'https://pumpbawges.xyz',
+  externalUrl: 'https://pumpdawgs.xyz',
 
   // ─── Layer order: bottom → top. Folder names must match exactly. ───────────
   layerOrder: [
@@ -81,7 +81,7 @@ module.exports = {
     // Bubblegum bubble and cigar both occupy the lower-left held-item space.
     { when: ['mouth:bubblegum', 'mouth:cigar'], forbid: ['held:bubble-wand'] },
 
-    // Pixel mode is the GameBawg tier — it should look clean, no other overlay noise.
+    // Pixel mode is the GameDawg tier — it should look clean, no other overlay noise.
     { when: ['overlay:pixel-mode'], forbid: ['backdrop:rainbow', 'backdrop:city-skyline'] },
   ],
 
@@ -100,5 +100,5 @@ module.exports = {
   // ─── Safety ────────────────────────────────────────────────────────────────
   maxRerolls: 50000,   // abort if exclusions are so tight we can't fill the supply
   shuffleOutput: true, // randomize which DNA maps to which token id
-  seed: 'pump-bawges-v1', // deterministic — same seed always rebuilds the same collection
+  seed: 'pump-dawgs-v1', // deterministic — same seed always rebuilds the same collection
 };
