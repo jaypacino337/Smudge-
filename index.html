@@ -3,25 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PUMP DAWGS — 1,111 dogs on Solana</title>
-<meta name="description" content="1,111 hand-drawn dawgs on Solana, with a paired token. Four concept directions, a 125-layer generative system, and the full prompt library.">
-<meta property="og:title" content="PUMP DAWGS">
-<meta property="og:description" content="1,111 dogs on Solana. One token. Same dog.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B6%3C/text%3E%3C/svg%3E">
+<title>ZAZU — every fee, bought back and burned</title>
+<meta name="description" content="ZAZU on Robinhood Chain. One cat rendered across every element, and a creator-fee mechanism that claims, buys back, and burns on a fixed cadence — with the whole flow on the page.">
+<meta property="og:title" content="ZAZU">
+<meta property="og:description" content="One cat. Every element. Every fee bought back and burned.">
+<meta property="og:image" content="assets/zazu-logo.png">
+<meta name="theme-color" content="#d6ff00">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
 <nav class="nav">
   <div class="nav-in">
-    <a class="logo" href="index.html"><span class="paw">🐾</span><span data-brand="name">PUMP DAWGS</span></a>
+    <a class="logo" href="index.html">
+      <img src="assets/favicon-180.png" alt="" width="30" height="30">
+      <span data-brand="name">ZAZU</span>
+    </a>
     <div class="nav-links">
-      <a href="#thesis">The Play</a>
-      <a href="#concepts">Concepts</a>
-      <a href="#layers">Layers</a>
-      <a href="#build">Build</a>
-      <a href="#community">Community</a>
-      <a href="lab.html" class="btn btn-sm btn-primary">Prompt Lab →</a>
+      <a href="#panel">The Panel</a>
+      <a href="#fees">Fee Mechanism</a>
+      <a href="#burn">Burn</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-sm btn-primary" data-brand-href="links.pons">Trade on pons</a>
     </div>
   </div>
 </nav>
@@ -29,402 +35,241 @@
 <!-- ══════════════════ HERO ══════════════════ -->
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow">1,111 on <span data-brand="chain">Solana</span> · paired token <span data-brand="ticker">$DAWGS</span></p>
-    <h1>Pump<span class="word-2">Dawgs</span></h1>
-    <p class="hero-sub">Dogs. On Solana. That's the whole pitch.</p>
+    <span class="chain-pill"><span class="dot"></span>Live on <span data-brand="chain">Robinhood Chain</span> · via <span data-brand="launchpad">pons</span></span>
+    <h1>Zazu</h1>
+    <p class="hero-sub">One cat. Every element. <span class="hl">Every fee bought back and burned.</span></p>
     <p class="lead">
-      An NFT collection of <strong class="lime">1,111</strong> dawgs with a token wired to
-      it — two assets, one dog, same community. Heavy ink, cel shading, cosmic backgrounds.
-      All <strong class="lime">125 layers are drawn</strong> and the collection builds
-      end-to-end today.
+      <span data-brand="ticker">$ZAZU</span> is a <span data-brand="launchpad">pons</span> launch on
+      <span data-brand="chain">Robinhood Chain</span>. Every trade pays a pool fee, the creator share
+      is claimed on a fixed cadence, and it goes straight back into the token —
+      <strong>bought off the market and burned</strong>. The whole mechanism is on this page,
+      not in a thread.
     </p>
     <div class="hero-cta">
-      <a href="#layers" class="btn btn-primary">How it's built</a>
-      <a href="lab.html" class="btn">Prompt Lab</a>
+      <a class="btn btn-primary" data-brand-href="links.pons">Trade on pons</a>
+      <a class="btn" href="#fees">See the fee mechanism</a>
     </div>
-    <div class="pack" id="pack"></div>
+
+    <div class="ca">
+      <span class="k">Contract</span>
+      <span class="v" id="ca-value">not deployed yet</span>
+      <button class="btn btn-sm" id="ca-copy">copy</button>
+    </div>
+
+    <div class="hero-strip" id="hero-strip"></div>
   </div>
 </header>
 
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>125 LAYERS</span><span>·</span><span><b>480 BILLION</b> COMBINATIONS</span><span>·</span>
-    <span>1,111 SUPPLY</span><span>·</span><span>11 CATEGORIES</span><span>·</span>
-    <span><b>3</b> LASER EYES</span><span>·</span><span><b>11</b> CROWNS</span><span>·</span>
-    <span>GOOD DAWGS</span><span>·</span>
-    <span>125 LAYERS</span><span>·</span><span><b>480 BILLION</b> COMBINATIONS</span><span>·</span>
-    <span>1,111 SUPPLY</span><span>·</span><span>11 CATEGORIES</span><span>·</span>
-    <span><b>3</b> LASER EYES</span><span>·</span><span><b>11</b> CROWNS</span><span>·</span>
-    <span>GOOD DAWGS</span><span>·</span>
-  </div>
+  <div class="marquee-track" id="marquee"></div>
 </div>
 
-<!-- ══════════════════ THESIS ══════════════════ -->
-<section id="thesis">
+<!-- ══════════════════ THE PANEL ══════════════════ -->
+<section id="panel">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">The structure</p>
-      <h2>Two things. One&nbsp;dog.</h2>
+    <div class="section-head rv">
+      <p class="eyebrow">The collection</p>
+      <h2>The Zazu panel</h2>
       <p class="lead">
-        The model we're copying is simple and it works: a small supply NFT collection is the
-        <em>identity</em>, a liquid token is the <em>onramp</em>. Neither one carries the whole
-        thing alone. People who can't afford the NFT hold the token. People who hold the token
-        eventually want the PFP.
+        The same cat, drawn once, rendered across every element. Same anchors, same square
+        frame, same face — only the world behind him and the light on his fur change.
+        Nothing stretched, nothing cropped off.
       </p>
     </div>
 
-    <div class="duo">
-      <article class="panel duo-card">
-        <p class="kind">Asset 01 — the collectible</p>
-        <h3>The Dawgs</h3>
-        <p class="dim">1,111 generative PFPs. Scarce, identity-bearing, illiquid by design.</p>
-        <ul>
-          <li>Small supply keeps the floor meaningful</li>
-          <li>Traits give people something to argue about</li>
-          <li>The PFP is the membership card</li>
-          <li>Trades on Tensor / Magic Eden</li>
-        </ul>
-      </article>
+    <div class="panel-bar rv" id="panel-bar"></div>
+    <div class="zgrid" id="zgrid"></div>
 
-      <div class="duo-link">
-        <span class="bar"></span>
-        <span>shared<br>community</span>
-        <span class="bar"></span>
-      </div>
-
-      <article class="panel duo-card token">
-        <p class="kind">Asset 02 — the onramp</p>
-        <h3><span data-brand="ticker">$DAWGS</span></h3>
-        <p class="dim">The liquid, low-barrier way in. Anyone can hold a piece for $5.</p>
-        <ul>
-          <li>Unlimited holders, no floor gate</li>
-          <li>Carries the meme to a wider audience</li>
-          <li>Gives non-holders a reason to care</li>
-          <li>Trades on pump.fun / DEXs</li>
-        </ul>
-      </article>
-    </div>
-
-    <div class="callout" style="margin-top:22px">
-      <strong>Be honest about the link.</strong> The two assets share a community and a brand.
-      Anything beyond that — revenue share, buybacks, promised utility — is a securities
-      question, not a design question. Decide what you're actually committing to before you
-      write it on a website, and get real advice if you go past "same dog, same Discord."
+    <div class="callout rv" style="margin-top:26px">
+      <strong>Want the real photo instead of the drawn portrait?</strong> Drop the Zazu picture at
+      <code class="inline">assets/zazu-source.png</code> and run
+      <code class="inline">node generator/tools/draw-zazu.js</code>. Same backgrounds, same grades,
+      same filenames — the whole panel re-renders off the photo in one command.
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ CONCEPTS ══════════════════ -->
-<section id="concepts" style="background:var(--bg-2); border-block:1px solid var(--line)">
+<!-- ══════════════════ FEE MECHANISM ══════════════════ -->
+<section id="fees" class="alt">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Step 1 — the look</p>
-      <h2>The art direction</h2>
+    <div class="section-head rv">
+      <p class="eyebrow">The mechanism</p>
+      <h2>Fee dashboard</h2>
       <p class="lead">
-        Heavy black ink, cel shading, saturated colour, cosmic backgrounds — Quantum
-        Cats' confidence, but dogs. The other four directions below were the alternatives;
-        each is a drop-in swap, because they all share the same 125 layer definitions.
+        On <span data-brand="launchpad">pons</span>, liquidity is locked in the launchpad's locker
+        but the trading fees the pool earns are claimable by the wallet that created the token.
+        That claim is the entire engine. Here is where every unit of it goes.
       </p>
     </div>
 
-    <article class="concept pick shipped">
-      <span class="badge">Shipped</span>
-      <div class="shipped-in">
-        <div>
-          <div class="num">00</div>
-          <h3>Quantum Dawgs</h3>
-          <p class="oneliner">Quantum Cats' ink-and-cel confidence, but dogs.</p>
-          <div class="swatches">
-            <i style="background:#e04a34"></i><i style="background:#ffc93d"></i>
-            <i style="background:#b8e635"></i><i style="background:#3fc7c0"></i>
-            <i style="background:#8b5cf6"></i><i style="background:#ff3d8b"></i>
-          </div>
-          <dl>
-            <dt>Render</dt><dd>20px black outlines drawn with a steady hand. Two tones per element, light fixed upper-left. Big eyes with a hard catchlight.</dd>
-            <dt>Traits</dt><dd>All Bodega — chopped cheese, deli cups, rope chains, puffers, lotto scratchers, do-rags.</dd>
-            <dt>Why</dt><dd>Reads as <em>made</em>, not as a shitpost. Competing on craft instead of on being disposable, and it survives a 64px crop better than crayon art.</dd>
-            <dt>Risk</dt><dd>The "ugly on purpose" meta rewards low-effort art. If the audience you want is pure degen, Crayon is the safer read.</dd>
-          </dl>
-        </div>
-        <div class="shipped-art">
-          <img src="showcase/hero-3.png" alt="a black lab dawg in a tuxedo and crown with laser eyes" loading="lazy">
-          <img src="showcase/hero-6.png" alt="a poodle dawg in a do-rag and gold chain smoking a cigar" loading="lazy">
-          <img src="showcase/hero-2.png" alt="a shiba dawg in shades and a hoodie" loading="lazy">
-          <img src="showcase/hero-5.png" alt="a cream dawg in a bucket hat with heart eyes" loading="lazy">
-        </div>
+    <div class="dash-head rv">
+      <h3>Live totals</h3>
+      <span id="dash-badge"></span>
+      <span class="panel-count" id="dash-updated"></span>
+    </div>
+
+    <div class="tiles rv" id="tiles"></div>
+
+    <div class="grid grid-2 rv" style="margin-top:28px; align-items:start">
+      <div class="card">
+        <h3 style="margin-bottom:6px">Where the creator share goes</h3>
+        <p class="dim" style="font-size:.9rem">
+          Of every <span id="creator-pct">70</span>% claimed, this is the split. Change it in
+          <code class="inline">assets/js/fees.js</code> and the bar redraws.
+        </p>
+        <div class="split" id="split" style="margin-top:16px"></div>
+        <div class="legend" id="split-legend"></div>
       </div>
-    </article>
 
-    <p class="eyebrow" style="margin:38px 0 14px">The alternatives</p>
-    <div class="grid grid-4">
-
-      <article class="concept">
-        <div class="num">01</div>
-        <h3>Crayon Dawgs</h3>
-        <p class="oneliner">The proven house style, but dogs, and dumber.</p>
-        <div class="swatches">
-          <i style="background:#f5efe3"></i><i style="background:#e8b96a"></i>
-          <i style="background:#8c5a3c"></i><i style="background:#b8b5ae"></i>
-          <i style="background:#1a1a1a"></i>
-        </div>
-        <dl>
-          <dt>Why</dt><dd>Fastest to 1,111. Reads perfectly at 64px avatar size. In-family with what's already working.</dd>
-          <dt>Risk</dt><dd>Closest to "clone" accusations. Beat it with dog-native traits cats can't have.</dd>
-        </dl>
-      </article>
-
-      <article class="concept">
-        <div class="num">02</div>
-        <h3>Bodega Dawgs</h3>
-        <p class="oneliner">Corner-store street dogs. Every dawg looks like it has a guy.</p>
-        <div class="swatches">
-          <i style="background:#d6402f"></i><i style="background:#7a7f84"></i>
-          <i style="background:#f5c518"></i><i style="background:#1f7a4c"></i>
-          <i style="background:#141414"></i>
-        </div>
-        <dl>
-          <dt>Why</dt><dd>Trait <em>narrative</em> is what gets screenshotted. Chopped cheese beats "blue background".</dd>
-          <dt>Risk</dt><dd>Regional humor. Slower per trait — more to draw.</dd>
-        </dl>
-      </article>
-
-      <article class="concept">
-        <div class="num">03</div>
-        <h3>GameDawg</h3>
-        <p class="oneliner">32×32 pixel dogs on a candy-colored handheld palette.</p>
-        <div class="swatches">
-          <i style="background:#0f380f"></i><i style="background:#306230"></i>
-          <i style="background:#8bac0f"></i><i style="background:#9bbc0f"></i>
-          <i style="background:#ff2e88"></i>
-        </div>
-        <dl>
-          <dt>Why</dt><dd>Pixels snap to a grid — alignment errors are literally impossible. Cheapest to fix by hand.</dd>
-          <dt>Risk</dt><dd>Crowded category. You'd win on execution, not novelty.</dd>
-        </dl>
-      </article>
-
-      <article class="concept">
-        <div class="num">04</div>
-        <h3>Puffy Dawgs</h3>
-        <p class="oneliner">Soft vinyl-toy dogs as puffed-up glossy stickers.</p>
-        <div class="swatches">
-          <i style="background:#ff8fb1"></i><i style="background:#ffb86b"></i>
-          <i style="background:#7be0c0"></i><i style="background:#9ba7ff"></i>
-          <i style="background:#faf5ec"></i>
-        </div>
-        <dl>
-          <dt>Why</dt><dd>Looks expensive. Translates straight to plushies and merch.</dd>
-          <dt>Risk</dt><dd>Hardest to keep consistent across 125 layers. Fights the "ugly on purpose" meta.</dd>
-        </dl>
-      </article>
+      <div class="card">
+        <h3 style="margin-bottom:6px">Next claim</h3>
+        <p class="dim" style="font-size:.9rem">
+          Claims run on a fixed cadence, and the buyback is sliced into
+          <span id="twap-slices">12</span> TWAP orders rather than market-bought in one go —
+          a single large buy into a thin pool mostly pays slippage.
+        </p>
+        <div class="countdown" id="countdown" style="margin-top:16px"></div>
+        <p class="dim" style="font-size:.82rem;margin:14px 0 0" id="cadence-note"></p>
+      </div>
     </div>
 
-    <div class="callout" style="margin-top:26px">
-      <strong>Want a different look?</strong> <code class="inline">npm run art -- crayon</code>
-      re-renders all 125 layers in the Concept 1 marker style in about 20 seconds. Nothing
-      else changes — same layer definitions, same generator, same metadata. GameDawg already
-      lives inside the collection as an 11-piece <code class="inline">pixel-mode</code> tier.
-      Full write-up in <a href="art/CONCEPTS.md">art/CONCEPTS.md</a>.
+    <h3 class="rv" style="margin:44px 0 16px">The flow, end to end</h3>
+    <div class="flow rv" id="flow"></div>
+
+    <h3 class="rv" style="margin:44px 0 16px">Claim ledger</h3>
+    <div class="table-scroll rv">
+      <table class="ledger">
+        <thead>
+          <tr>
+            <th>Epoch</th><th>Claimed</th><th>Bought back</th>
+            <th>Burned</th><th>To LP</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ledger-body"></tbody>
+      </table>
     </div>
+
+    <div class="callout rv" style="margin-top:22px" id="wiring-note"></div>
   </div>
 </section>
 
-<!-- ══════════════════ LAYERS ══════════════════ -->
-<section id="layers">
+<!-- ══════════════════ BURN ══════════════════ -->
+<section id="burn">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Step 2 — the layering system</p>
-      <h2>How 125 drawings become 1,111 dogs</h2>
+    <div class="section-head rv">
+      <p class="eyebrow">Supply</p>
+      <h2>The burn</h2>
       <p class="lead">
-        Generative NFT art is one idea repeated: every trait is a transparent PNG on an
-        identical canvas, and the generator stacks them in a fixed order. Get the alignment
-        right and the rest is bookkeeping.
+        Bought-back tokens go to <code class="inline">0x…dEaD</code> — an address nobody holds the
+        key to. Supply only moves one direction, and the number below is
+        <code class="inline">balanceOf</code> on that address, which anyone can check without
+        trusting this site.
       </p>
     </div>
 
-    <div class="grid grid-4" style="margin-bottom:34px">
-      <div class="stat"><div class="v">125</div><div class="k">layer assets</div></div>
-      <div class="stat"><div class="v">11</div><div class="k">categories</div></div>
-      <div class="stat"><div class="v">480B</div><div class="k">combinations</div></div>
-      <div class="stat"><div class="v">1,111</div><div class="k">final supply</div></div>
-    </div>
-
-    <div class="grid grid-2" style="align-items:start">
-      <div>
-        <h3 style="margin-bottom:14px">Draw order</h3>
-        <div class="zstack" id="zstack"></div>
+    <div class="card rv">
+      <div class="meter-row">
+        <span id="burn-label">0 burned</span>
+        <span id="burn-pct">0.00% of supply</span>
       </div>
-
-      <div>
-        <h3 style="margin-bottom:14px">The one rule that matters</h3>
-        <p class="dim" style="font-size:.97rem">
-          Every layer is drawn on the same <strong>2048×2048</strong> transparent canvas, with
-          the subject at the same pixel anchors. If a hat sits 40px left of another hat, you'll
-          be hand-fixing 1,111 images.
-        </p>
-        <pre style="margin:16px 0"><span class="c"># fixed anchors — every prompt cites these</span>
-body center X   <span class="g">1024</span>
-head top Y      <span class="g">560</span>
-eye line Y      <span class="g">880</span>
-muzzle Y        <span class="g">1120</span>
-shoulder Y      <span class="g">1500</span>
-held item       <span class="g">470, 1560</span></pre>
-        <p class="dim" style="font-size:.94rem">
-          Generate the plain base body <em>first</em>, turn it into
-          <code class="inline">art/anchor-sheet.png</code>, then attach that image to every
-          other prompt with <em>"match this reference exactly, output only the new element on
-          transparent background."</em> Skipping this step is the #1 reason collections come out
-          misaligned.
-        </p>
-
-        <h3 style="margin:26px 0 12px">Rarity is just a number in the filename</h3>
-        <pre><span class="c">generator/layers/07-headwear/</span>
-backwards-cap<span class="g">#80</span>.png   <span class="c">common</span>
-bucket-hat<span class="g">#45</span>.png      <span class="c">uncommon</span>
-cowboy<span class="g">#25</span>.png          <span class="c">rare</span>
-halo<span class="g">#6</span>.png             <span class="c">epic</span>
-crown<span class="g">#5</span>.png            <span class="c">legendary</span>
-none<span class="g">#180</span>.png           <span class="c">no hat</span></pre>
-        <p class="dim" style="font-size:.94rem;margin-top:12px">
-          Retune rarity by renaming files. No code changes. Exact counts for headline traits
-          (3 laser eyes, 11 crowns) are pinned in <code class="inline">config.forced</code>.
-        </p>
+      <div class="meter"><i id="burn-meter"></i></div>
+      <div class="legend" style="margin-top:14px">
+        <span><i style="background:var(--neon)"></i> burned</span>
+        <span><i style="background:var(--paper-3);box-shadow:inset 0 0 0 1px var(--line-hi)"></i> circulating</span>
       </div>
     </div>
 
-    <h3 style="margin:44px 0 16px">Rarity tiers</h3>
-    <div class="tiers">
-      <div class="tier"><span class="lbl dim">Common</span><span class="bar"><i style="width:100%;background:#3d3d4a"></i></span><span class="num">weight 100</span></div>
-      <div class="tier"><span class="lbl sky">Uncommon</span><span class="bar"><i style="width:45%;background:#5ac8fa"></i></span><span class="num">weight 45</span></div>
-      <div class="tier"><span class="lbl lime">Rare</span><span class="bar"><i style="width:15%;background:#c8ff3d"></i></span><span class="num">weight 15</span></div>
-      <div class="tier"><span class="lbl" style="color:#ff8fb1">Epic</span><span class="bar"><i style="width:5%;background:#ff8fb1"></i></span><span class="num">weight 5</span></div>
-      <div class="tier"><span class="lbl" style="color:#ffd24a">Legendary</span><span class="bar"><i style="width:1.5%;background:#ffd24a"></i></span><span class="num">weight 1</span></div>
-    </div>
-
-    <h3 style="margin:44px 0 16px">Exclusion rules — the part everyone forgets</h3>
-    <p class="lead" style="margin-bottom:16px">
-      Some combinations are physically broken. The generator rejects and rerolls them.
-      Write a rule the moment a preview makes you go "that looks wrong."
-    </p>
-    <pre><span class="c">// a cowboy hat crushes upright ears</span>
-{ when: [<span class="g">'fur:shiba-pricked'</span>], forbid: [<span class="g">'headwear:cowboy'</span>] }
-
-<span class="c">// sunglasses over closed eyes reads as a bug, not a trait</span>
-{ when: [<span class="g">'eyes:sleepy'</span>], forbid: [<span class="g">'eyewear:*'</span>] }
-
-<span class="c">// the cone of shame owns the entire neck</span>
-{ when: [<span class="g">'headwear:cone-of-shame'</span>], forbid: [<span class="g">'outfit:*'</span>, <span class="g">'eyewear:*'</span>] }
-
-<span class="c">// dark dog on a dark background = invisible at avatar size</span>
-{ when: [<span class="g">'background:void'</span>], forbid: [<span class="g">'fur:black-lab'</span>] }</pre>
-  </div>
-</section>
-
-<!-- ══════════════════ BUILD ══════════════════ -->
-<section id="build" style="background:var(--bg-2); border-block:1px solid var(--line)">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Step 3 — mass-produce it</p>
-      <h2>From zero to minted</h2>
-      <p class="lead">
-        The art is done. Everything below is either already run or a one-line command —
-        the only steps left that need a human are your wallet, a domain, and the mint.
-      </p>
-    </div>
-
-    <div class="steps">
-      <div class="step done"><h3>Draw the 125 layers</h3><p><code class="inline">npm run art</code> — every layer rendered in code, so alignment is exact by construction. Swap to the marker style with <code class="inline">npm run art -- crayon</code>.</p></div>
-      <div class="step done"><h3>Preview and fix</h3><p><code class="inline">npm run preview -- 36</code> gives a contact sheet. Anything that looks wrong becomes an exclusion rule in <code class="inline">config.js</code>.</p></div>
-      <div class="step done"><h3>Tune rarity</h3><p>Rename a file to change its weight. Pin exact counts for headline traits in <code class="inline">config.forced</code>.</p></div>
-      <div class="step"><h3>Build the collection</h3><p><code class="inline">npm run build -- 1111</code> → images, Metaplex metadata, and a rarity report. Deterministic: same seed, same collection, every time.</p></div>
-      <div class="step"><h3>Set your wallet + domain</h3><p><code class="inline">generator/config.js</code> → <code class="inline">creators</code> and <code class="inline">externalUrl</code>. Every metadata file carries these, so do it before you upload.</p></div>
-      <div class="step"><h3>Devnet first</h3><p><code class="inline">sugar launch</code> against devnet. Mint five to yourself. Confirm they actually render on a marketplace before you spend real SOL.</p></div>
-      <div class="step"><h3>Mainnet</h3><p>Same command, mainnet RPC. Set your wallet in <code class="inline">generator/config.js</code> → <code class="inline">creators</code> first — the build warns you if you forget.</p></div>
-      <div class="step"><h3>Token</h3><p>Launch <span data-brand="ticker">$DAWGS</span> separately. Same brand, same Discord, no promises you can't keep.</p></div>
-    </div>
-
-    <div class="grid grid-2" style="margin-top:34px">
-      <div>
-        <h3 style="margin-bottom:12px">Try it right now</h3>
-        <pre id="quickstart"><span class="c"># draws all 125 layers, then builds</span>
-<span class="c"># the full 1,111-piece collection</span>
-cd generator
-npm install
-npm run art
-npm run preview -- 36
-npm run build -- 1111</pre>
-        <button class="btn btn-sm" data-copy-target="#quickstart" style="margin-top:12px">copy commands</button>
+    <div class="grid grid-3 rv" style="margin-top:16px">
+      <div class="card">
+        <h3 style="margin-bottom:8px">Nobody can undo it</h3>
+        <p class="dim" style="font-size:.92rem;margin:0">
+          The burn address has no private key. There is no admin function to mint the supply back,
+          because there is no mint function at all after launch.
+        </p>
       </div>
-      <div>
-        <h3 style="margin-bottom:12px">What you get</h3>
-        <pre>generator/output/
-  images/       <span class="c">1.png … 1111.png</span>
-  json/         <span class="c">Metaplex metadata</span>
-  _rarity.json  <span class="c">trait distribution</span>
-  _dna.txt      <span class="c">every combination</span>
-  _preview.png  <span class="c">contact sheet</span></pre>
-        <p class="dim" style="font-size:.9rem;margin-top:12px">
-          Verified: 1,111 unique combinations out of 479,975,932,800 possible, with forced
-          counts landing exactly — 3 laser eyes, 11 crowns, 7 ghosts, 11 pixel dawgs.
-          Deterministic: same seed, byte-identical output, every time.
+      <div class="card">
+        <h3 style="margin-bottom:8px">Verify it yourself</h3>
+        <p class="dim" style="font-size:.92rem;margin:0">
+          Call <code class="inline">balanceOf(0x…dEaD)</code> on the token contract in any explorer.
+          If it disagrees with this page, believe the chain.
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:8px">Fees, not treasury</h3>
+        <p class="dim" style="font-size:.92rem;margin:0">
+          Buybacks are funded by trading fees the pool already earned. No team allocation is being
+          sold to pay for them.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ COMMUNITY ══════════════════ -->
-<section id="community">
+<!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+<section id="how" class="alt">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Step 4 — the audience</p>
-      <h2>Where the dawgs live</h2>
+    <div class="section-head rv">
+      <p class="eyebrow">Under the hood</p>
+      <h2>Three transactions, on a timer</h2>
       <p class="lead">
-        The art is the easy part. Two accounts carry the whole project: an X feed that posts
-        one dawg a day, and a Discord that isn't a scam vector. Full setup in
-        <a href="docs/LAUNCH-KIT.md">docs/LAUNCH-KIT.md</a> — handles, bio copy, banner
-        prompt, channel structure, and the security checklist.
+        There is no magic here and it's deliberately boring. Claiming a
+        <span data-brand="launchpad">pons</span> creator fee and turning it into a burn is three
+        on-chain steps that any wallet can watch happen.
       </p>
     </div>
 
-    <div class="socials">
-      <article class="social-card">
-        <h3>𝕏 <span>X / Twitter</span></h3>
-        <p class="handle">@pumpdawgs</p>
+    <div class="steps rv">
+      <div class="step">
+        <h3>Claim</h3>
         <p>
-          One dawg a day. Flat bio, no rocket emojis — the joke is that it's just dogs.
-          Grab the near-miss handles too; a squatter on the good one is a permanent tax.
+          The creator wallet claims the accrued fee from the pons locker. It's the only wallet that
+          can — which is also why it's the one thing worth protecting properly.
         </p>
-        <a class="btn btn-sm" data-brand-href="links.twitter">Follow</a>
-      </article>
-
-      <article class="social-card">
-        <h3>💬 <span>Discord</span></h3>
-        <p class="handle">discord.gg/pumpdawgs</p>
+      </div>
+      <div class="step">
+        <h3>Buy back</h3>
         <p>
-          Eight channels, not thirty — an empty server looks dead. Holder role auto-assigned
-          by a Solana verification bot once the collection is minted.
+          The claimed <span data-brand="chain">Robinhood Chain</span> ETH buys
+          <span data-brand="ticker">$ZAZU</span> on its own pool, sliced into TWAP orders so the
+          buy isn't handing most of itself to slippage.
         </p>
-        <a class="btn btn-sm" data-brand-href="links.discord">Join</a>
-      </article>
-
-      <article class="social-card">
-        <h3>💰 <span data-brand="ticker">$DAWGS</span></h3>
-        <p class="handle">the onramp</p>
+      </div>
+      <div class="step">
+        <h3>Burn</h3>
         <p>
-          Launches separately, after there's an audience to launch it into. Doing both at
-          once splits attention and liquidity.
+          The bought tokens are transferred to <code class="inline">0x…dEaD</code>, the LP slice is
+          paired back in, and the tx hashes land in the ledger above.
         </p>
-        <a class="btn btn-sm" data-brand-href="links.pumpfun">Chart</a>
-      </article>
+      </div>
     </div>
 
-    <div class="callout" style="margin-top:22px">
-      <strong>Do the security checklist before the first invite.</strong> The standard attack
-      on an NFT Discord is a compromised admin or webhook posting a fake mint link, and the
-      damage lands on your holders' wallets, not yours. Require 2FA for moderation, keep
-      Administrator to yourself, and pin <em>"we will never DM you first"</em> where everyone
-      lands. Same on X: authenticator-app 2FA, not SMS — these accounts get SIM-swapped.
+    <div class="grid grid-2 rv" style="margin-top:26px; align-items:start">
+      <div>
+        <h3 style="margin-bottom:12px">Point it at the chain</h3>
+        <pre id="wire-snippet"><span class="c">// assets/js/fees.js</span>
+source: <span class="g">'chain'</span>,
+rpc:    <span class="g">'https://&lt;robinhood-chain-rpc&gt;'</span>,
+contracts: {
+  token:         <span class="g">'0x…'</span>,
+  creatorWallet: <span class="g">'0x…'</span>,
+  burnAddress:   <span class="g">'0x…dEaD'</span>,
+  feeLocker:     <span class="g">'0x…'</span>,
+}</pre>
+        <button class="btn btn-sm" data-copy-target="#wire-snippet" style="margin-top:12px">copy</button>
+      </div>
+      <div class="card dark">
+        <h3 style="margin-bottom:10px">One honest warning</h3>
+        <p class="dim" style="font-size:.93rem">
+          A buyback-and-burn is a <em>policy</em>, not a property of the token. It holds because the
+          creator wallet keeps running it — and if that wallet is a single key on a laptop, that's
+          the actual risk, not the smart contract.
+        </p>
+        <p class="dim" style="font-size:.93rem;margin:0">
+          Put the fee wallet behind a multisig, publish the cadence, and let the ledger be the
+          proof. Promising a share of revenue is a securities question rather than a design one;
+          get real advice before you write anything stronger than what's on this page.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -432,63 +277,82 @@ npm run build -- 1111</pre>
 <!-- ══════════════════ FAQ ══════════════════ -->
 <section id="faq">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head rv">
       <p class="eyebrow">Questions</p>
       <h2>FAQ</h2>
     </div>
 
     <details class="faq" open>
-      <summary>Why 1,111?</summary>
-      <div class="body"><p>Small enough that the floor means something, big enough for a real community, and it's the number the category has settled on. Change it in one place — <code class="inline">generator/config.js</code> → <code class="inline">supply</code>.</p></div>
-    </details>
-
-    <details class="faq">
-      <summary>Why is the art drawn in code instead of by an image model?</summary>
+      <summary>Is claiming pons creator fees actually hard?</summary>
       <div class="body">
-        <p><strong>Alignment.</strong> Every hat lands on the same skull because it's the same arithmetic. Prompted layers drift on position and scale even with a reference image attached, and you end up hand-nudging 15–20% of them — normally the single biggest time sink in a generative launch. Here that number is zero.</p>
-        <p>It also means the whole set redraws in about 20 seconds. Change a colour, a shape, or the entire style and re-run — iterating on 125 prompted images would take days per pass.</p>
+        <p>No. Connect the wallet that created the token to the pons interface and claim — fees arrive as ETH on Robinhood Chain. Only the creator wallet can do it, and pons automation will route unclaimed fees to the creator payout wallet anyway.</p>
+        <p>The buyback and burn on top is three transactions in a loop. The hard parts are operational: protecting the creator key, sizing claims so gas doesn't eat them, and actually running the cadence every day.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>What's the catch with procedural art?</summary>
+      <summary>What's the fee split?</summary>
       <div class="body">
-        <p>It's geometry, so it can't do texture, incidental detail, or the small imperfections a human illustrator brings. Next to hand-drawn work these read as simpler — a real illustrator would beat this.</p>
-        <p>That's a drop-in upgrade if the collection takes off: have someone redraw the 125 layers against the same anchors and filenames. The generator doesn't care where the PNGs came from, and the prompt packs in <a href="lab.html">the Lab</a> are still there if you'd rather go the image-model route now.</p>
+        <p>The pool takes <span id="faq-trade-fee">1%</span> of each trade. Of that, <span id="faq-creator">70%</span> goes to the creator and <span id="faq-protocol">30%</span> to pons on the current factory — tokens launched from the legacy factory keep the original 90/10. Check which factory yours came from before you quote a number.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>Do I need the token and the NFT to launch together?</summary>
-      <div class="body"><p>No, and you probably shouldn't. Launching both at once splits attention and liquidity. Pick whichever you can execute well, get traction, then launch the other into an audience that already exists.</p></div>
+      <summary>Why not just point the fee wallet at a bot?</summary>
+      <div class="body">
+        <p>You can — several services claim, buy back and burn automatically. The trade-off is that pointing your fee wallet at a third party means trusting it with the whole fee stream. Read what's actually enforced on-chain versus what's just their server before you route anything.</p>
+      </div>
     </details>
 
     <details class="faq">
-      <summary>Are royalties enforced on Solana?</summary>
-      <div class="body"><p>Only if you mint as pNFTs (programmable NFTs). Standard NFTs treat <code class="inline">seller_fee_basis_points</code> as a suggestion that marketplaces may ignore. Decide before you upload — it's not something you change afterwards.</p></div>
+      <summary>Are the numbers on this page real?</summary>
+      <div class="body">
+        <p>Not until <code class="inline">assets/js/fees.js</code> is switched from <code class="inline">source: 'demo'</code> to <code class="inline">'chain'</code> with an RPC and contract addresses filled in. While it's on demo the dashboard shows a warning badge and zeroed totals, on purpose — invented buyback figures on a token site are a real legal problem, not a cosmetic one.</p>
+      </div>
     </details>
 
     <details class="faq">
-      <summary>Why does the build warn about my wallet?</summary>
-      <div class="body"><p><code class="inline">config.creators</code> ships with a placeholder address. Every metadata file carries it, so uploading without replacing it would point royalties at nothing. The build prints a warning at the end until you fix it.</p></div>
+      <summary>How do I change the art?</summary>
+      <div class="body">
+        <p>Everything comes out of <code class="inline">generator/tools/draw-zazu.js</code>. The <code class="inline">ELEMENTS</code> array at the top is the whole panel — add an entry and you get a new Zazu, a new card, and a new favicon-safe render on the next run. Drop a real photo at <code class="inline">assets/zazu-source.png</code> and it uses that as the base instead.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Where did the PFP generator go?</summary>
+      <div class="body">
+        <p>Removed. The old prompt-lab page and the X handle card came out with it — this site is the panel and the fee mechanism, nothing else.</p>
+      </div>
     </details>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot">
-    <a class="logo" href="index.html"><span class="paw">🐾</span><span data-brand="name">PUMP DAWGS</span></a>
-    <a href="lab.html">Prompt Lab</a>
-    <a href="art/CONCEPTS.md">Concepts</a>
-    <a href="art/LAYER-SPEC.md">Layer Spec</a>
-    <a href="docs/LAUNCH-KIT.md">Launch Kit</a>
+    <a class="logo" href="index.html">
+      <img src="assets/favicon-180.png" alt="" width="30" height="30">
+      <span data-brand="name">ZAZU</span>
+    </a>
+    <a href="#panel">Panel</a>
+    <a href="#fees">Fees</a>
+    <a href="#burn">Burn</a>
     <a href="README.md">README</a>
-    <span class="fine">Not financial advice. Do your own research. It's a dog.</span>
+    <a data-brand-href="links.explorer">Explorer</a>
+    <span class="fine">Not financial advice. Verify on-chain. It's a cat.</span>
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" aria-label="close">&times;</button>
+  <div>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-meta" id="lb-meta"></div>
+  </div>
+</div>
+
 <script src="assets/js/brand.js"></script>
-<script src="assets/js/prompts-data.js"></script>
+<script src="assets/js/fees.js"></script>
+<script src="assets/js/zazus.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

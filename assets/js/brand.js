@@ -1,41 +1,47 @@
 /**
  * SINGLE SOURCE OF TRUTH for every brand string on the site.
  *
- * Rename the collection here and every page updates. Nothing else hardcodes the name.
+ * Rename the project here and every page updates. Nothing else hardcodes the name.
  *
- * LINKS: paste the real URLs below the moment the X account and Discord exist. Any link
- * left as '#' renders as a greyed-out "soon" button instead of a dead link — see main.js.
+ * LINKS: paste the real URLs the moment they exist. Any link left as '#' renders
+ * as a greyed-out "soon" button instead of a dead link — see the bottom of this file.
  */
 window.BRAND = {
-  name: 'PUMP DAWGS',
-  short: 'DAWGS',
-  singular: 'dawg',
-  plural: 'dawgs',
-  ticker: '$DAWGS',
-  supply: 1111,
-  chain: 'Solana',
-  tagline: 'One thousand one hundred and eleven dawgs. One token. Same dog.',
+  name:     'ZAZU',
+  short:    'ZAZU',
+  singular: 'zazu',
+  plural:   'zazus',
+  ticker:   '$ZAZU',
+  chain:    'Robinhood Chain',
+  launchpad: 'pons',
+  supply:   '1,000,000,000',
+  tagline:  'One cat. Every element. Every fee bought back and burned.',
+
+  // Paste the real token address after launch. Until then the hero shows "not deployed yet".
+  contract: '',
+
   links: {
-    twitter:   '#',   // https://x.com/pumpdawgs
-    discord:   '#',   // https://discord.gg/xxxxxxx
-    tensor:    '#',   // https://tensor.trade/trade/pumpdawgs
-    magiceden: '#',
-    pumpfun:   '#',
+    pons:      '#',   // https://pons.<...>/token/0x...
+    dexscreen: '#',   // https://dexscreener.com/robinhood/0x...
+    explorer:  '#',   // block explorer address page
+    docs:      '#',
   },
-  // Set to true once the mint is live to flip all the CTA states.
-  minted: false,
+
+  // Flip to true once the token is live to switch the CTA copy.
+  live: false,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const B = window.BRAND;
+  const dig = key => key.split('.').reduce((o, k) => (o == null ? o : o[k]), B);
+
   document.querySelectorAll('[data-brand]').forEach(el => {
-    const key = el.getAttribute('data-brand');
-    const val = key.split('.').reduce((o, k) => (o == null ? o : o[k]), B);
-    if (val !== undefined && val !== null) el.textContent = val;
+    const val = dig(el.getAttribute('data-brand'));
+    if (val !== undefined && val !== null && val !== '') el.textContent = val;
   });
+
   document.querySelectorAll('[data-brand-href]').forEach(el => {
-    const key = el.getAttribute('data-brand-href');
-    const val = key.split('.').reduce((o, k) => (o == null ? o : o[k]), B);
+    const val = dig(el.getAttribute('data-brand-href'));
     if (val && val !== '#') {
       el.setAttribute('href', val);
       el.setAttribute('target', '_blank');
@@ -45,9 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.classList.add('pending');
       el.removeAttribute('href');
       el.setAttribute('aria-disabled', 'true');
-      if (!el.querySelector('.soon')) {
-        el.insertAdjacentHTML('beforeend', ' <span class="soon">soon</span>');
-      }
+      if (!el.querySelector('.soon')) el.insertAdjacentHTML('beforeend', ' <span class="soon">soon</span>');
     }
   });
 });
