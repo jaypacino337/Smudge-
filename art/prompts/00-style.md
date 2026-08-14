@@ -1,8 +1,17 @@
-# 00 — STYLE BLOCK  ⚠️ EDIT THIS FILE FIRST
+# 00 — STYLE BLOCK
 
-This is the single source of truth for how PUMP DAWGS looks. It gets prepended to **every**
-prompt in every batch. Swap the block below for a different concept from `../CONCEPTS.md` and
-the entire collection changes style without touching a single layer definition.
+> **The shipped art does not come from this file.** All 125 layers are drawn in code by
+> `generator/tools/draw-layers.js` in the **Quantum Dawgs** style — run `npm run art`, or
+> `npm run art -- crayon` for the marker look. Style presets live in
+> `generator/tools/lib/draw.js`.
+>
+> This file is for the *other* route: having an image model draw the layers instead. If
+> that's what you're doing, everything below still applies — paste the active block at the
+> top of a fresh conversation before any batch from `../prompts/`.
+
+The style block below gets prepended to **every** prompt in every batch. Swap it for a
+different concept from `../CONCEPTS.md` and the whole collection changes look without
+touching a single layer definition.
 
 Currently set to: **Concept 1 — CRAYON DAWGS** (with Concept 2's trait content).
 
