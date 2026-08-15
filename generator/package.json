@@ -14,7 +14,8 @@
     "showcase": "node tools/make-showcase.js"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.65"
+    "@napi-rs/canvas": "^0.1.65",
+    "sharp": "^0.34.0"
   },
   "engines": {
     "node": ">=18"

@@ -60,6 +60,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 | `generator/tools/lib/draw.js` | Ink-and-cel drawing toolkit; `quantum` and `crayon` style presets |
 | `generator/` | The generative engine — weighted rarity, exclusions, DNA dedupe, metadata |
 | `showcase/` | Committed sample renders, X banner (1500x500), and PFP (800x800) |
+| `docs/MINTING.md` | **What it costs to mint** — real numbers, and the cheap path |
 | `docs/LAUNCH-KIT.md` | **X + Discord setup** — handles, bio copy, banner prompt, server structure, security checklist |
 
 ---
@@ -172,6 +173,11 @@ sugar launch
 
 **Devnet first.** `solana config set --url devnet`, mint five to yourself, confirm they render
 on a marketplace, *then* go to mainnet.
+
+**Cost: under $15 all-in** if you launch through a Candy Machine, because the buyer pays
+their own mint rent — your outlay is ~0.03 SOL of accounts plus ~$1.30 of Arweave storage.
+Pre-minting all 1,111 yourself would be ~3.2 SOL (~$242) on Metaplex Core, or ~24 SOL
+(~$1,834) on legacy Token Metadata. Full breakdown in [`docs/MINTING.md`](docs/MINTING.md).
 
 Two things to decide before you upload, because neither is changeable after:
 
