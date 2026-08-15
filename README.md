@@ -4,6 +4,12 @@
 
 Heavy ink, cel shading, cosmic backgrounds — Quantum Cats' confidence, but dogs.
 
+> **Also in this repo:** [`goatse/`](goatse/) — **GOATSE**, 2,222 goats on Solana. A second,
+> self-contained collection sharing the same "draw every layer in code" approach but with its
+> own art direction (alpine ink instead of cosmic), its own 134-layer system built around
+> horns and horizontal bar pupils, and its own site. Nothing in this collection depends on it,
+> or it on this one.
+
 This repo is the whole project: **all 125 art layers**, a working generator that outputs
 mint-ready images + Metaplex metadata, the site, four alternative art directions, and the
 X/Discord launch kit. The collection builds end-to-end today.
