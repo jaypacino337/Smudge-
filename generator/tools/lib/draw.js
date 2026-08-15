@@ -16,25 +16,27 @@
 const STYLES = {
   quantum: {
     ink: '#101018',
-    width: 20,        // outline width at 2048px
+    width: 23,        // SILHOUETTE weight — the outer contour of a form
+    detail: 13,       // INTERIOR weight — creases, seams, small features
     wobble: 0.008,    // radial jitter as a fraction of radius — near zero = confident line
     jitter: 3,        // absolute point jitter in px
     overfill: 0,      // fill offset in px
     cel: true,        // two-tone cel shading
-    celAmount: 0.16,  // how much darker the shadow tone is
-    celAngle: -0.5,   // shadow direction (radians); light comes from the upper left
-    celCover: 0.38,   // fraction of the shape in shadow
+    celAmount: 0.15,  // how much darker the shadow tone is
+    celCover: 0.34,   // how far the shadow wraps around the form
+    rim: 0.16,        // strength of the upper-left light edge
   },
   crayon: {
     ink: '#1a1a1a',
     width: 15,
+    detail: 11,
     wobble: 0.035,
     jitter: 8,
     overfill: 9,
     cel: false,
     celAmount: 0,
-    celAngle: 0,
     celCover: 0,
+    rim: 0,
   },
 };
 
@@ -155,8 +157,16 @@ function openPath(ctx, pts) {
 
 /* ── cel shading ─────────────────────────────────────────────────────────── */
 /**
- * Paint the shadow tone inside `pts`: clip to the shape, then flood a half-plane
- * rotated to celAngle covering the lower-right celCover fraction of the bounding box.
+ * Cel shadow with a TERMINATOR THAT FOLLOWS THE FORM.
+ *
+ * The old version flooded a straight rotated half-plane, which cut every shape with the
+ * same diagonal regardless of its geometry — it read as a printing misregistration rather
+ * than as light. This instead defines an offset "lit" ellipse and shades everything
+ * outside it, so the shadow edge curves around the volume the way cel shading actually
+ * works, and a sphere reads as a sphere.
+ *
+ * Optionally adds a rim: a thin lit edge on the upper left, which is what stops flat
+ * fills from looking like paper cut-outs.
  */
 function celShade(ctx, pts, fill, o = {}) {
   if (!S.cel || !fill) return;
@@ -168,17 +178,32 @@ function celShade(ctx, pts, fill, o = {}) {
     if (x < minX) minX = x; if (x > maxX) maxX = x;
     if (y < minY) minY = y; if (y > maxY) maxY = y;
   }
+  const w = maxX - minX, h = maxY - minY;
   const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-  const r = Math.hypot(maxX - minX, maxY - minY);
+  const far = Math.max(w, h) * 2;
 
   ctx.save();
   closedPath(ctx, pts);
   ctx.clip();
-  ctx.translate(cx, cy);
-  ctx.rotate(o.angle == null ? S.celAngle : o.angle);
+
+  // Shadow = everything outside the lit ellipse. Even-odd via a reversed inner subpath.
+  const litRx = w * 0.82, litRy = h * 0.82;
+  const dx = -w * cover * 0.62, dy = -h * cover * 0.62;
   ctx.fillStyle = o.color || shade(fill, o.amount);
-  // half-plane: everything below y = r*(0.5 - cover)
-  ctx.fillRect(-r, r * (0.5 - cover) - r * 0.5, r * 2, r * 2);
+  ctx.beginPath();
+  ctx.rect(cx - far, cy - far, far * 2, far * 2);
+  ctx.ellipse(cx + dx, cy + dy, litRx, litRy, 0, 0, Math.PI * 2, true);
+  ctx.fill();
+
+  // Rim light — a sliver of the lighter tone hugging the upper-left contour.
+  const rim = o.rim == null ? S.rim : o.rim;
+  if (rim > 0) {
+    ctx.fillStyle = tint(fill, rim);
+    ctx.beginPath();
+    ctx.ellipse(cx - w * 0.10, cy - h * 0.10, w * 0.60, h * 0.60, 0, 0, Math.PI * 2, true);
+    ctx.ellipse(cx - w * 0.13, cy - h * 0.13, w * 0.66, h * 0.66, 0, 0, Math.PI * 2, false);
+    ctx.fill('evenodd');
+  }
   ctx.restore();
 }
 

@@ -24,9 +24,9 @@ const S = spec.canvas;                 // 2048
 /* ── geometry ────────────────────────────────────────────────────────────── */
 const CX = spec.anchors.bodyCenterX;   // 1024
 const EYE_Y = spec.anchors.eyeLineY;   // 880
-const EYE_L = 880, EYE_R = 1170;       // eye centres
+const EYE_L = 856, EYE_R = 1192;       // eye centres
 const HEAD = { x: CX, y: 960, rx: 440, ry: 400 };   // top lands on headTopY = 560
-const MUZZLE = { x: CX, y: 1150, rx: 250, ry: 175 };
+const MUZZLE = { x: CX, y: 1168, rx: 198, ry: 142 };
 const NOSE = { x: CX, y: 1075, rx: 88, ry: 66 };
 const BODY_TOP = 1420;
 const HELD = { x: spec.anchors.heldItemX, y: spec.anchors.heldItemY };  // 470, 1560
@@ -273,81 +273,147 @@ function torsoRing(rand) {
   ], 6);
 }
 
-function drawDog(ctx, rand, o) {
-  const { fur, ears = 'floppy', muzzle = null, chest = null, split = null, curly = false, alpha = 1 } = o;
-  const cel = { cover: 0.34 };
-
-  // ears behind the head
-  if (ears === 'floppy') {
-    D.blob(ctx, rand, 620, 1050, 148, 330, { fill: D.shade(fur, 0.07), rot: -0.22, alpha, cel });
-    D.blob(ctx, rand, 1428, 1050, 148, 330, { fill: D.shade(fur, 0.07), rot: 0.22, alpha, cel });
-  } else if (ears === 'pricked') {
-    D.shape(ctx, D.poly(rand, [[700, 760], [580, 330], [930, 620]]), { fill: fur, alpha, cel });
-    D.shape(ctx, D.poly(rand, [[1348, 760], [1468, 330], [1118, 620]]), { fill: fur, alpha, cel });
-  } else if (ears === 'big') {
-    D.blob(ctx, rand, 640, 640, 190, 265, { fill: fur, rot: -0.3, alpha, cel });
-    D.blob(ctx, rand, 1408, 640, 190, 265, { fill: fur, rot: 0.3, alpha, cel });
-  } else if (ears === 'cropped') {
-    D.shape(ctx, D.poly(rand, [[730, 720], [700, 490], [900, 640]]), { fill: fur, alpha, cel });
-    D.shape(ctx, D.poly(rand, [[1318, 720], [1348, 490], [1148, 640]]), { fill: fur, alpha, cel });
-  }
-
-  // torso
-  D.shape(ctx, torsoRing(rand), { fill: fur, alpha, cel: { cover: 0.42 } });
-
-  // head
-  const head = D.ring(rand, HEAD.x, HEAD.y, HEAD.rx, HEAD.ry, { n: 26, squash: 0.05 });
-  D.shape(ctx, head, { fill: fur, alpha, cel });
-
-  if (curly) {
-    for (let i = 0; i < 9; i++) {
-      const a = -Math.PI + (i / 8) * Math.PI;
-      D.blob(ctx, rand, HEAD.x + Math.cos(a) * 380, 700 + Math.sin(a) * 190, 120, 110, { fill: fur, alpha, cel });
-    }
-    D.shape(ctx, head, { fill: null, alpha });
-  }
-
-  // husky-style face split
-  if (split) {
-    D.clipTo(ctx, head, () => {
-      D.blob(ctx, rand, CX, 1080, 300, 420, { fill: split, w: 0, alpha, cel: false });
-    });
-    D.shape(ctx, head, { fill: null, alpha });
-  }
-
-  // chest patch
-  if (chest) D.blob(ctx, rand, CX, 1720, 260, 300, { fill: chest, alpha, cel: { cover: 0.3 } });
-
-  // muzzle patch (nose + mouth live in the 05-mouth layer)
-  if (muzzle) D.blob(ctx, rand, MUZZLE.x, MUZZLE.y, MUZZLE.rx, MUZZLE.ry, { fill: muzzle, alpha, cel: { cover: 0.28 } });
+/** A chest ruff: wide at the collar, tapering to a point. Not an egg. */
+function chestRuff(ctx, rand, fill, alpha = 1, w = null) {
+  const pts = D.poly(rand, [
+    [CX - 300, 1470], [CX - 175, 1440], [CX, 1462], [CX + 175, 1440], [CX + 300, 1470],
+    [CX + 250, 1700], [CX + 120, 1880], [CX, 1930], [CX - 120, 1880], [CX - 250, 1700],
+  ], 8);
+  D.shape(ctx, pts, { fill, alpha, cel: { cover: 0.3 }, w: w == null ? D.style().detail : w });
 }
 
+/**
+ * The head, built as a compound form rather than one ellipse: a cranium that widens into
+ * cheek mass at the jaw and can flatten into a brow at the top. Every breed passes its own
+ * proportions, which is what makes the silhouettes read as different dogs instead of one
+ * dog in different colours.
+ */
+function headShape(rand, hs) {
+  const { rx, ry, cheek = 0.62, brow = 0 } = hs;
+  const pts = [];
+  const n = 30;
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const cos = Math.cos(a), sin = Math.sin(a);
+    const lower = Math.max(0, sin);     // jaw half
+    const upper = Math.max(0, -sin);    // skull half
+    const kx = 1 + lower * cheek * 0.28 - upper * brow * 0.10;
+    const ky = 1 + lower * 0.05;
+    pts.push([
+      HEAD.x + cos * rx * kx * (1 + D.jit(rand, D.style().wobble)),
+      HEAD.y + sin * ry * ky * (1 + D.jit(rand, D.style().wobble)),
+    ]);
+  }
+  return pts;
+}
+
+function drawDog(ctx, rand, o) {
+  const {
+    fur, ears = 'floppy', muzzle = null, chest = null, split = null,
+    curly = false, alpha = 1, head: hs = {},
+  } = o;
+  const H = { rx: 440, ry: 400, cheek: 0.62, brow: 0, ...hs };
+  const W = D.style().width, DW = D.style().detail;
+  const cel = { cover: 0.32 };
+
+  // ── ears, behind the head ─────────────────────────────────────────────────
+  const earFill = D.shade(fur, 0.09);
+  const ex = H.rx * 0.94;
+  if (ears === 'floppy') {
+    D.blob(ctx, rand, HEAD.x - ex, 1070, 150, 340, { fill: earFill, rot: -0.24, alpha, cel, w: W });
+    D.blob(ctx, rand, HEAD.x + ex, 1070, 150, 340, { fill: earFill, rot: 0.24, alpha, cel, w: W });
+  } else if (ears === 'pricked') {
+    for (const sx of [-1, 1]) {
+      D.shape(ctx, D.poly(rand, [[HEAD.x + sx * 330, 780], [HEAD.x + sx * 445, 300], [HEAD.x + sx * 105, 640]]),
+        { fill: fur, alpha, cel, w: W });
+      D.shape(ctx, D.poly(rand, [[HEAD.x + sx * 318, 742], [HEAD.x + sx * 400, 404], [HEAD.x + sx * 172, 640]]),
+        { fill: D.shade(fur, 0.26), alpha, w: DW, cel: false });
+    }
+  } else if (ears === 'big') {
+    for (const sx of [-1, 1]) {
+      D.blob(ctx, rand, HEAD.x + sx * ex, 640, 195, 275, { fill: fur, rot: sx * 0.3, alpha, cel, w: W });
+      D.blob(ctx, rand, HEAD.x + sx * ex, 664, 116, 178, { fill: D.shade(fur, 0.26), rot: sx * 0.3, alpha, w: DW, cel: false });
+    }
+  } else if (ears === 'cropped') {
+    for (const sx of [-1, 1]) {
+      D.shape(ctx, D.poly(rand, [[HEAD.x + sx * 300, 730], [HEAD.x + sx * 330, 470], [HEAD.x + sx * 130, 630]]),
+        { fill: fur, alpha, cel, w: W });
+    }
+  }
+
+  // ── torso, with a contact shadow where the head sits on it ────────────────
+  const torso = torsoRing(rand);
+  D.shape(ctx, torso, { fill: fur, alpha, cel: { cover: 0.40 }, w: W });
+  D.clipTo(ctx, torso, () => {
+    D.blob(ctx, rand, CX, 1452, 430, 138, { fill: D.shade(fur, 0.26), w: 0, alpha, cel: false });
+  });
+
+  // ── head ──────────────────────────────────────────────────────────────────
+  const head = headShape(rand, H);
+  D.shape(ctx, head, { fill: fur, alpha, cel, w: W });
+
+  if (curly) {
+    for (let i = 0; i < 10; i++) {
+      const a = -Math.PI + (i / 9) * Math.PI;
+      D.blob(ctx, rand, HEAD.x + Math.cos(a) * H.rx * 0.86, 690 + Math.sin(a) * 200, 125, 115,
+        { fill: fur, alpha, cel, w: W });
+    }
+    D.shape(ctx, head, { fill: null, alpha, w: W });
+  }
+
+  if (split) {
+    D.clipTo(ctx, head, () => {
+      D.blob(ctx, rand, CX, 1090, 300, 430, { fill: split, w: 0, alpha, cel: false });
+    });
+    D.shape(ctx, head, { fill: null, alpha, w: W });
+  }
+
+  if (chest) chestRuff(ctx, rand, chest, alpha, DW);
+
+  // ── muzzle: part of the skull, not a sticker ──────────────────────────────
+  // Filled with no contour of its own and clipped to the head, then a single crease along
+  // its top edge. Nose and mouth arrive later, in the 05-mouth layer.
+  if (muzzle) {
+    D.clipTo(ctx, head, () => {
+      D.blob(ctx, rand, MUZZLE.x, MUZZLE.y + 8, MUZZLE.rx, MUZZLE.ry,
+        { fill: muzzle, w: 0, alpha, cel: { cover: 0.26 } });
+    });
+    D.stroke(ctx, rand, [MUZZLE.x - MUZZLE.rx * 0.9, MUZZLE.y - 34],
+      [MUZZLE.x + MUZZLE.rx * 0.9, MUZZLE.y - 34], -52, { w: DW, alpha });
+  }
+}
+
+/**
+ * Breed proportions. A corgi skull is wide and low, a shiba's is narrow with a strong
+ * brow, a pitty's is broad and blocky. This is the difference between twelve breeds and
+ * twelve palette swaps.
+ */
 const FUR = {
-  'cream-floppy':  (c, r) => drawDog(c, r, { fur: C.cream,  muzzle: D.tint(C.cream, 0.5) }),
-  'tan-floppy':    (c, r) => drawDog(c, r, { fur: C.tan,    muzzle: C.cream }),
-  'cocoa-floppy':  (c, r) => drawDog(c, r, { fur: C.cocoa,  muzzle: '#C9945F' }),
-  'ash-floppy':    (c, r) => drawDog(c, r, { fur: C.ash,    muzzle: '#DEDBD4' }),
-  'golden-floppy': (c, r) => drawDog(c, r, { fur: C.golden, muzzle: C.cream }),
-  'black-lab':     (c, r) => drawDog(c, r, { fur: C.black,  muzzle: '#4A4A5A' }),
-  'shiba-pricked': (c, r) => drawDog(c, r, { fur: C.shiba,  ears: 'pricked', muzzle: C.cream, chest: C.cream }),
-  'husky-pricked': (c, r) => drawDog(c, r, { fur: C.husky,  ears: 'pricked', muzzle: C.white, split: C.white }),
-  'corgi-pricked': (c, r) => drawDog(c, r, { fur: C.corgi,  ears: 'big',     muzzle: C.white, chest: C.white }),
-  'pitty-cropped': (c, r) => drawDog(c, r, { fur: C.pitty,  ears: 'cropped', muzzle: '#D3D8DE' }),
-  'poodle-curly':  (c, r) => drawDog(c, r, { fur: C.poodle, muzzle: C.cream, curly: true }),
-  'ghost-white':   (c, r) => drawDog(c, r, { fur: C.white,  muzzle: '#EFEFFA', alpha: 0.78 }),
+  'cream-floppy':  (c, r) => drawDog(c, r, { fur: C.cream,  muzzle: D.tint(C.cream, 0.45), head: { rx: 438, ry: 402 } }),
+  'tan-floppy':    (c, r) => drawDog(c, r, { fur: C.tan,    muzzle: C.cream,   head: { rx: 444, ry: 398 } }),
+  'cocoa-floppy':  (c, r) => drawDog(c, r, { fur: C.cocoa,  muzzle: '#C9945F', head: { rx: 452, ry: 392 } }),
+  'ash-floppy':    (c, r) => drawDog(c, r, { fur: C.ash,    muzzle: '#DEDBD4', head: { rx: 430, ry: 408 } }),
+  'golden-floppy': (c, r) => drawDog(c, r, { fur: C.golden, muzzle: C.cream,   head: { rx: 460, ry: 400, cheek: 0.9 } }),
+  'black-lab':     (c, r) => drawDog(c, r, { fur: C.black,  muzzle: '#4A4A5A', head: { rx: 448, ry: 404 } }),
+  'shiba-pricked': (c, r) => drawDog(c, r, { fur: C.shiba,  ears: 'pricked', muzzle: C.cream, chest: C.cream, head: { rx: 412, ry: 396, cheek: 0.8, brow: 1 } }),
+  'husky-pricked': (c, r) => drawDog(c, r, { fur: C.husky,  ears: 'pricked', muzzle: C.white, split: C.white, head: { rx: 424, ry: 410, brow: 1 } }),
+  'corgi-pricked': (c, r) => drawDog(c, r, { fur: C.corgi,  ears: 'big',     muzzle: C.white, chest: C.white, head: { rx: 478, ry: 372, cheek: 0.95 } }),
+  'pitty-cropped': (c, r) => drawDog(c, r, { fur: C.pitty,  ears: 'cropped', muzzle: '#D3D8DE', head: { rx: 486, ry: 368, cheek: 1.0, brow: 1 } }),
+  'poodle-curly':  (c, r) => drawDog(c, r, { fur: C.poodle, muzzle: C.cream, curly: true, head: { rx: 442, ry: 416 } }),
+  'ghost-white':   (c, r) => drawDog(c, r, { fur: C.white,  muzzle: '#EFEFFA', alpha: 0.78, head: { rx: 438, ry: 402 } }),
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
    03 — MARKING
    ═══════════════════════════════════════════════════════════════════════════ */
-const headRing = rand => D.ring(rand, HEAD.x, HEAD.y, HEAD.rx, HEAD.ry, { n: 26, squash: 0.05 });
+// widest skull in the set, so a clipped marking never falls short on a narrower head
+const headRing = rand => headShape(rand, { rx: 486, ry: 416, cheek: 1.0 });
 
 const MARKING = {
   eyepatch: (ctx, rand) => D.clipTo(ctx, headRing(rand), () =>
     D.blob(ctx, rand, EYE_L - 20, EYE_Y - 10, 215, 195, { fill: '#5A3A24', w: 12, n: 15 })),
 
-  'tuxedo-chest': (ctx, rand) =>
-    D.blob(ctx, rand, CX, 1760, 235, 300, { fill: C.white, cel: { cover: 0.3 } }),
+  'tuxedo-chest': (ctx, rand) => chestRuff(ctx, rand, C.white),
 
   spots: (ctx, rand) => D.clipTo(ctx, headRing(rand), () => {
     for (const [x, y, r] of [[760, 700, 78], [1290, 690, 62], [700, 1120, 54],
@@ -559,58 +625,63 @@ const MOUTH = {
   smile: (ctx, rand) => {
     nose(ctx, rand);
     D.stroke(ctx, rand, [CX, 1140], [CX, 1180], 0, { w: 16 });
-    D.stroke(ctx, rand, [900, 1180], [CX, 1195], -46, { w: 17 });
-    D.stroke(ctx, rand, [CX, 1195], [1148, 1180], -46, { w: 17 });
+    D.stroke(ctx, rand, [CX - 118, 1176], [CX, 1192], -40, { w: 16 });
+    D.stroke(ctx, rand, [CX, 1192], [CX + 118, 1176], -40, { w: 16 });
   },
   'tongue-out': (ctx, rand) => {
-    D.blob(ctx, rand, 1068, 1290, 92, 128, { fill: '#F27C9B', rot: 0.16, cel: { cover: 0.3 } });
-    D.stroke(ctx, rand, [1068, 1220], [1068, 1350], 0, { w: 12 });
+    D.blob(ctx, rand, CX + 44, 1262, 78, 104, { fill: '#F27C9B', rot: 0.16, cel: { cover: 0.3 } });
+    D.stroke(ctx, rand, [CX + 44, 1206], [CX + 44, 1312], 0, { w: 11 });
     nose(ctx, rand);
-    D.stroke(ctx, rand, [900, 1180], [1148, 1180], -52, { w: 17 });
+    D.stroke(ctx, rand, [CX - 118, 1174], [CX + 118, 1174], -46, { w: 16 });
   },
   'big-grin': (ctx, rand) => {
-    const m = D.ring(rand, CX, 1220, 190, 110, { n: 18 });
+    // arc up at the corners so it reads as a grin, not a grimace
+    const m = D.poly(rand, [
+      [CX - 150, 1196], [CX - 70, 1178], [CX, 1184], [CX + 70, 1178], [CX + 150, 1196],
+      [CX + 118, 1284], [CX, 1306], [CX - 118, 1284],
+    ], 5);
     D.shape(ctx, m, { fill: '#3A1F28' });
     D.clipTo(ctx, m, () => {
-      D.shape(ctx, D.poly(rand, [[820, 1110], [1230, 1110], [1230, 1200], [820, 1200]]), { fill: C.white, w: 0 });
-      for (let x = 880; x < 1200; x += 74) D.stroke(ctx, rand, [x, 1110], [x, 1200], 0, { w: 9 });
+      D.shape(ctx, D.poly(rand, [[CX - 170, 1170], [CX + 170, 1170], [CX + 170, 1236], [CX - 170, 1236]]),
+        { fill: C.white, w: 0 });
+      for (let x = CX - 100; x <= CX + 100; x += 66) D.stroke(ctx, rand, [x, 1170], [x, 1236], 0, { w: 8 });
     });
     nose(ctx, rand);
   },
   smirk: (ctx, rand) => {
     nose(ctx, rand);
     D.stroke(ctx, rand, [CX, 1140], [CX, 1180], 0, { w: 16 });
-    D.stroke(ctx, rand, [930, 1200], [1180, 1160], -40, { w: 17 });
+    D.stroke(ctx, rand, [CX - 104, 1196], [CX + 132, 1160], -36, { w: 16 });
   },
   bark: (ctx, rand) => {
-    const m = D.ring(rand, CX, 1250, 165, 155, { n: 18 });
+    const m = D.ring(rand, CX, 1240, 132, 112, { n: 18 });
     D.shape(ctx, m, { fill: '#3A1F28' });
     D.clipTo(ctx, m, () => {
-      D.blob(ctx, rand, CX, 1370, 130, 90, { fill: '#F27C9B', w: 0, cel: false });
-      D.shape(ctx, D.poly(rand, [[930, 1105], [990, 1105], [960, 1180]]), { fill: C.white, w: 0 });
-      D.shape(ctx, D.poly(rand, [[1058, 1105], [1118, 1105], [1088, 1180]]), { fill: C.white, w: 0 });
+      D.blob(ctx, rand, CX, 1318, 104, 72, { fill: '#F27C9B', w: 0, cel: false });
+      D.shape(ctx, D.poly(rand, [[CX - 78, 1132], [CX - 26, 1132], [CX - 52, 1196]]), { fill: C.white, w: 0 });
+      D.shape(ctx, D.poly(rand, [[CX + 26, 1132], [CX + 78, 1132], [CX + 52, 1196]]), { fill: C.white, w: 0 });
     });
     nose(ctx, rand);
   },
   drool: (ctx, rand) => {
     nose(ctx, rand);
-    D.stroke(ctx, rand, [910, 1180], [1140, 1180], -44, { w: 17 });
+    D.stroke(ctx, rand, [CX - 112, 1176], [CX + 112, 1176], -40, { w: 16 });
     D.blob(ctx, rand, 1130, 1290, 34, 76, { fill: '#9FD8F0', w: 12, cel: { cover: 0.3 } });
   },
   'chewing-bone': (ctx, rand) => {
     nose(ctx, rand);
-    D.stroke(ctx, rand, [910, 1185], [1140, 1185], -30, { w: 17 });
+    D.stroke(ctx, rand, [CX - 112, 1180], [CX + 112, 1180], -28, { w: 16 });
     boneShape(ctx, rand, CX, 1250, 260, 74, C.cream, 0.08);
   },
   bubblegum: (ctx, rand) => {
     nose(ctx, rand);
-    D.stroke(ctx, rand, [930, 1180], [1120, 1180], -30, { w: 17 });
+    D.stroke(ctx, rand, [CX - 100, 1176], [CX + 100, 1176], -28, { w: 16 });
     D.blob(ctx, rand, 1290, 1300, 195, 185, { fill: '#FF9EC4', cel: { cover: 0.32 } });
     D.blob(ctx, rand, 1225, 1235, 42, 30, { fill: 'rgba(255,255,255,0.6)', w: 0, cel: false, rot: -0.5 });
   },
   cigar: (ctx, rand) => {
     nose(ctx, rand);
-    D.stroke(ctx, rand, [920, 1180], [1130, 1180], -30, { w: 17 });
+    D.stroke(ctx, rand, [CX - 108, 1176], [CX + 108, 1176], -28, { w: 16 });
     D.shape(ctx, D.poly(rand, [[1090, 1210], [1420, 1150], [1432, 1216], [1102, 1276]]), { fill: '#7A4A28' });
     D.blob(ctx, rand, 1428, 1183, 34, 34, { fill: '#FF6A3D', w: 10 });
     for (let i = 0; i < 3; i++) {
@@ -639,44 +710,44 @@ const eyePair = (ctx, rand, fn) => { fn(EYE_L, -1); fn(EYE_R, 1); };
 
 const EYES = {
   dots: (ctx, rand) => eyePair(ctx, rand, (x) => {
-    D.blob(ctx, rand, x, EYE_Y, 74, 82, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, x, EYE_Y, 86, 95, { fill: C.white, w: 14 });
     D.blob(ctx, rand, x, EYE_Y + 6, 44, 50, { fill: D.style().ink, w: 0, cel: false });
     D.blob(ctx, rand, x + 16, EYE_Y - 18, 17, 17, { fill: C.white, w: 0, cel: false });
   }),
   sleepy: (ctx, rand) => eyePair(ctx, rand, (x) => {
-    D.blob(ctx, rand, x, EYE_Y, 74, 82, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, x, EYE_Y, 86, 95, { fill: C.white, w: 14 });
     D.blob(ctx, rand, x, EYE_Y + 22, 40, 36, { fill: D.style().ink, w: 0, cel: false });
     D.shape(ctx, D.poly(rand, [[x - 86, EYE_Y - 92], [x + 86, EYE_Y - 92], [x + 82, EYE_Y + 6], [x - 82, EYE_Y + 6]]),
       { fill: 'rgba(20,20,28,0.92)', w: 0, cel: false });
     D.stroke(ctx, rand, [x - 82, EYE_Y + 4], [x + 82, EYE_Y + 4], 0, { w: 15 });
   }),
   'side-eye': (ctx, rand) => eyePair(ctx, rand, (x) => {
-    D.blob(ctx, rand, x, EYE_Y, 80, 78, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, x, EYE_Y, 92, 90, { fill: C.white, w: 14 });
     D.blob(ctx, rand, x - 32, EYE_Y + 4, 38, 46, { fill: D.style().ink, w: 0, cel: false });
     D.blob(ctx, rand, x - 20, EYE_Y - 16, 13, 13, { fill: C.white, w: 0, cel: false });
   }),
   'wide-shock': (ctx, rand) => eyePair(ctx, rand, (x) => {
-    D.blob(ctx, rand, x, EYE_Y, 100, 100, { fill: C.white, w: 15 });
+    D.blob(ctx, rand, x, EYE_Y, 112, 112, { fill: C.white, w: 15 });
     D.blob(ctx, rand, x, EYE_Y, 34, 34, { fill: D.style().ink, w: 0, cel: false });
     D.blob(ctx, rand, x + 13, EYE_Y - 13, 11, 11, { fill: C.white, w: 0, cel: false });
   }),
   'closed-happy': (ctx, rand) => eyePair(ctx, rand, (x) =>
     D.stroke(ctx, rand, [x - 82, EYE_Y + 22], [x + 82, EYE_Y + 22], 62, { w: 22 })),
   angry: (ctx, rand) => eyePair(ctx, rand, (x, side) => {
-    D.blob(ctx, rand, x, EYE_Y + 10, 74, 70, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, x, EYE_Y + 10, 86, 82, { fill: C.white, w: 14 });
     D.blob(ctx, rand, x + side * 14, EYE_Y + 14, 40, 44, { fill: D.style().ink, w: 0, cel: false });
     D.shape(ctx, D.poly(rand, [[x - side * 90, EYE_Y - 92], [x + side * 78, EYE_Y - 46],
                                [x + side * 78, EYE_Y - 8], [x - side * 90, EYE_Y - 44]]),
       { fill: D.style().ink, w: 0, cel: false });
   }),
   wink: (ctx, rand) => {
-    D.blob(ctx, rand, EYE_L, EYE_Y, 74, 82, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, EYE_L, EYE_Y, 86, 95, { fill: C.white, w: 14 });
     D.blob(ctx, rand, EYE_L, EYE_Y + 6, 44, 50, { fill: D.style().ink, w: 0, cel: false });
     D.blob(ctx, rand, EYE_L + 16, EYE_Y - 18, 17, 17, { fill: C.white, w: 0, cel: false });
     D.stroke(ctx, rand, [EYE_R - 82, EYE_Y + 22], [EYE_R + 82, EYE_Y + 22], 62, { w: 22 });
   },
   teary: (ctx, rand) => eyePair(ctx, rand, (x) => {
-    D.blob(ctx, rand, x, EYE_Y, 92, 96, { fill: C.white, w: 14 });
+    D.blob(ctx, rand, x, EYE_Y, 104, 108, { fill: C.white, w: 14 });
     D.blob(ctx, rand, x, EYE_Y + 8, 58, 62, { fill: D.style().ink, w: 0, cel: false });
     D.blob(ctx, rand, x + 22, EYE_Y - 24, 20, 20, { fill: C.white, w: 0, cel: false });
     D.blob(ctx, rand, x - 22, EYE_Y + 14, 11, 11, { fill: C.white, w: 0, cel: false });
