@@ -161,15 +161,45 @@ That string goes into a `Set`. Collision → discard and reroll. With 480B combi
 1,111 pulls, collisions are essentially nonexistent, but the check costs nothing and protects
 you if you ever slash the layer set.
 
-`forced` lets you pin exact counts for the top tier:
+`forced` pins exact counts. Four fields:
+
+| | |
+|---|---|
+| `trait` | pin one category |
+| `traits` | pin several at once — a **locked chase tier**, where every piece shares a look |
+| `name` | labels the tier and emits a `Tier` attribute in the metadata |
+| `reserve` | traits this tier owns exclusively, blocked from every ordinary piece |
 
 ```js
 forced: [
-  { trait: 'eyes:laser',        count: 3  },
-  { trait: 'headwear:crown',    count: 11 },
-  { trait: 'overlay:pixel-mode', count: 11 },  // the GameDawg 1/1 tier
+  // The chase. 10 Dawg Kings, one locked look, crown exists nowhere else.
+  {
+    name: 'Dawg King',
+    count: 10,
+    traits: [
+      'headwear:crown', 'outfit:gold-chain', 'eyes:glowing',
+      'eyewear:none', 'background:sunburst', 'fur:golden-floppy',
+    ],
+    reserve: ['headwear:crown'],
+  },
+
+  { trait: 'eyes:laser',         count: 3  },
+  { trait: 'overlay:pixel-mode', count: 11 },  // the GameDawg tier
+  { trait: 'fur:ghost-white',    count: 7  },
 ]
 ```
+
+Single-trait pins block that value from the random fill, so the count stays exact. A
+multi-trait tier deliberately blocks **nothing** by default — its individual traits should
+still show up on ordinary pieces, since it's the *combination* that's rare, and DNA
+uniqueness already prevents duplicates. `reserve` is how you carve out the exceptions.
+
+Kings still roll their own marking, mouth, held item, backdrop and overlay, so the ten are
+visibly siblings without being ten copies of one image.
+
+> **If a prize is attached to pulling a chase tier, disclose it before the mint** — on the
+> site and in the metadata. An undisclosed payout tier is how a mint gets accused of being
+> rigged for insiders, and that accusation sticks whether or not it's true.
 
 ---
 

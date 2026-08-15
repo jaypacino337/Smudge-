@@ -28,6 +28,10 @@ const PICKS = [
   { name: 'hero-4', background: 'mint',      fur: 'husky-pricked', outfit: 'hockey-jersey', mouth: 'bark',        eyes: 'wide-shock',   headwear: 'beanie',        held: 'hot-dog' },
   { name: 'hero-5', background: 'tangerine', fur: 'cream-floppy',  outfit: 'hawaiian',      mouth: 'bubblegum',   eyes: 'heart-eyes',   headwear: 'bucket-hat',    held: 'lollipop' },
   { name: 'hero-6', background: 'midnight',  fur: 'poodle-curly',  outfit: 'gold-chain',    mouth: 'cigar',       eyes: 'side-eye',     headwear: 'do-rag',        held: 'boombox', overlay: 'sparkle' },
+
+  // The chase tier — must match config.forced -> 'Dawg King'.traits exactly.
+  { name: 'dawg-king', background: 'sunburst', fur: 'golden-floppy', outfit: 'gold-chain',
+    mouth: 'big-grin', eyes: 'glowing', headwear: 'crown', overlay: 'sparkle' },
 ];
 
 const ORDER = config.layerOrder.map(l => ({ folder: l.folder, key: l.folder.replace(/^\d+-/, '') }));

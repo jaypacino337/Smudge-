@@ -142,23 +142,44 @@ function generateSet(cats, supply, rng) {
   //    like the real collection.
   const scale = supply / config.supply;
   for (const f of config.forced || []) {
-    const [cat, value] = f.trait.split(':');
-    const catDef = cats.find(c => c.key === cat);
-    if (!catDef) throw new Error(`forced: unknown category "${cat}"`);
-    if (!catDef.options.some(o => o.value === value)) {
-      console.warn(`  ! forced trait ${f.trait} has no matching file — skipping`);
-      continue;
+    // `trait: 'eyes:laser'` pins one category. `traits: [...]` pins several at once,
+    // which is how you build a locked chase tier (every Dawg King looks the same).
+    const specs = f.traits || [f.trait];
+    const pins = {};
+    let skip = false;
+
+    for (const spec of specs) {
+      const [cat, value] = spec.split(':');
+      const catDef = cats.find(c => c.key === cat);
+      if (!catDef) throw new Error(`forced: unknown category "${cat}"`);
+      if (!catDef.options.some(o => o.value === value)) {
+        console.warn(`  ! forced trait ${spec} has no matching file — skipping`);
+        skip = true;
+        break;
+      }
+      pins[cat] = value;
     }
+    if (skip) continue;
+
+    const label = f.name || specs.join(' + ');
     const want = scale === 1 ? f.count : Math.round(f.count * scale);
     for (let i = 0; i < want; i++) {
-      const r = rollOne(cats, rng, seen, { [cat]: value }, blocked);
+      const r = rollOne(cats, rng, seen, pins, blocked);
       if (!r) throw new Error(
-        `Could not satisfy forced trait ${f.trait} (#${i + 1}/${want}).\n` +
+        `Could not satisfy forced tier "${label}" (#${i + 1}/${want}).\n` +
         `  Its exclusion rules are probably too tight — check config.exclusions.`
       );
+      if (f.name) r.tier = f.name;   // surfaces as a metadata attribute
       items.push(r);
     }
-    blocked.add(f.trait);
+    // Block only single-trait pins. A multi-trait tier blocks nothing by default, because
+    // its individual traits should still appear on ordinary dawgs — it's the *combination*
+    // that's rare, and DNA uniqueness already prevents accidental duplicates.
+    //
+    // `reserve` marks traits that belong to this tier ALONE, so e.g. a crown can never
+    // show up on a non-King.
+    if (specs.length === 1) blocked.add(specs[0]);
+    for (const r of f.reserve || []) blocked.add(r);
   }
 
   // 2. Fill the remainder with weighted random, never re-drawing a forced value.
@@ -196,6 +217,8 @@ function buildMetadata(item, cats, id) {
     if (v === 'none' && !config.emitNoneTraits) continue;
     attributes.push({ trait_type: c.trait, value: titleCase(v) });
   }
+  // Chase tiers get their own attribute so marketplaces can filter on it directly.
+  if (item.tier) attributes.push({ trait_type: 'Tier', value: item.tier });
   return {
     name: `${config.name} #${id}`,
     symbol: config.symbol,
@@ -374,6 +397,13 @@ async function main() {
   const report = rarityReport(items, cats);
   fs.writeFileSync(path.join(OUT, '_rarity.json'), JSON.stringify(report, null, 2));
   fs.writeFileSync(path.join(OUT, '_dna.txt'), items.map(i => i.dna).join('\n'));
+
+  const tiers = {};
+  for (const it of items) if (it.tier) tiers[it.tier] = (tiers[it.tier] || 0) + 1;
+  if (Object.keys(tiers).length) {
+    console.log(`\n  chase tiers:`);
+    for (const [t, n] of Object.entries(tiers)) console.log(`    ${t.padEnd(11)} ${n}`);
+  }
 
   console.log(`\n  rarity spread:`);
   for (const [trait, rows] of Object.entries(report)) {

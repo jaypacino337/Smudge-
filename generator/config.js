@@ -96,15 +96,37 @@ module.exports = {
   ],
 
   /**
-   * Forced counts — guarantees exact numbers for headline traits.
-   * The generator seeds these first, then fills the rest with weighted random.
+   * Forced counts — exact numbers, seeded before the weighted random fill.
+   *
+   *   trait   pin one category
+   *   traits  pin several at once — this is how you build a locked chase tier where
+   *           every piece shares a look
+   *   name    labels the tier and emits a `Tier` metadata attribute
+   *   reserve traits belonging to this tier ALONE, blocked from ordinary dawgs
+   *
    * Sum must stay well under `supply`.
    */
   forced: [
-    { trait: 'eyes:laser',        count: 3  },
-    { trait: 'headwear:crown',    count: 11 },
+    // The chase. 10 Dawg Kings, one locked look, and the crown exists nowhere else.
+    // If you attach a prize to pulling one, say so on the site and in the metadata —
+    // an undisclosed payout tier is the kind of thing that gets a mint called rigged.
+    {
+      name: 'Dawg King',
+      count: 10,
+      traits: [
+        'headwear:crown',
+        'outfit:gold-chain',
+        'eyes:glowing',
+        'eyewear:none',          // nothing covers a King's eyes
+        'background:sunburst',
+        'fur:golden-floppy',
+      ],
+      reserve: ['headwear:crown'],
+    },
+
+    { trait: 'eyes:laser',         count: 3  },
     { trait: 'overlay:pixel-mode', count: 11 },
-    { trait: 'fur:ghost-white',   count: 7  },
+    { trait: 'fur:ghost-white',    count: 7  },
   ],
 
   // ─── Safety ────────────────────────────────────────────────────────────────
