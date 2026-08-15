@@ -1,0 +1,270 @@
+{
+  "collection": "GOATSE",
+  "symbol": "GOATSE",
+  "supply": 2222,
+  "canvas": 2048,
+  "anchors": {
+    "bodyCenterX": 1024,
+    "skullTopY": 620,
+    "eyeLineY": 880,
+    "muzzleCenterY": 1210,
+    "beardTipY": 1560,
+    "shoulderLineY": 1560,
+    "hornBaseY": 660,
+    "heldItemX": 470,
+    "heldItemY": 1620
+  },
+  "totalLayers": 134,
+  "categories": [
+    {
+      "id": "00-background",
+      "name": "Background",
+      "z": 0,
+      "allowNone": false,
+      "batchNote": "Full-bleed 2048x2048, opaque, NO transparency, NO subject. The only layers that fill edge to edge. Keep them flat — texture here fights the ink line on top. Every colour is chosen to hold contrast against a bone-white goat AND a black one.",
+      "layers": [
+        { "file": "bone",        "name": "Bone",        "weight": 100, "tier": "common",    "prompt": "Flat solid warm bone paper #EFE7D6 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "glacier",     "name": "Glacier",     "weight": 100, "tier": "common",    "prompt": "Flat solid pale glacier blue #BFD9E0 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "alpine",      "name": "Alpine",      "weight": 100, "tier": "common",    "prompt": "Flat solid muted alpine green #A7BFA4 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "dusk",        "name": "Dusk",        "weight": 90,  "tier": "common",    "prompt": "Flat solid dusty mauve dusk #C0A2AE background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "moss",        "name": "Moss",        "weight": 90,  "tier": "common",    "prompt": "Flat solid deep moss green #6E8257 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "ember",       "name": "Ember",       "weight": 80,  "tier": "common",    "prompt": "Flat solid signal orange #FF5A1F background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "slate",       "name": "Slate",       "weight": 70,  "tier": "uncommon",  "prompt": "Flat solid cold slate grey #79838C background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "chalk",       "name": "Chalk",       "weight": 70,  "tier": "uncommon",  "prompt": "Flat solid chalk white #F6F3EC background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "cobalt",      "name": "Cobalt",      "weight": 55,  "tier": "uncommon",  "prompt": "Flat solid saturated cobalt blue #2F4BB8 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "oxblood",     "name": "Oxblood",     "weight": 50,  "tier": "uncommon",  "prompt": "Flat solid deep oxblood red #6E1F24 background, completely uniform, no gradient, no texture, no subject. Full bleed square." },
+        { "file": "void",        "name": "Void",        "weight": 40,  "tier": "rare",      "prompt": "Flat near-black #12110F background with a very soft centre vignette, no stars, no subject. Full bleed square." },
+        { "file": "summit-gold", "name": "Summit Gold", "weight": 30,  "tier": "rare",      "prompt": "Flat burnished gold #D9A441 background with a faint darker vignette at the corners, no texture, no subject. Full bleed square." }
+      ]
+    },
+    {
+      "id": "01-backdrop",
+      "name": "Backdrop",
+      "z": 1,
+      "allowNone": true,
+      "noneWeight": 300,
+      "batchNote": "Transparent PNG. Scenery that sits BEHIND the goat — keep everything outside a 620px radius of (1024, 1000) or the goat will cover it. Silhouettes and flat shapes only, no rendering.",
+      "layers": [
+        { "file": "ridge-line",    "name": "Ridge Line",    "weight": 90, "tier": "common",    "prompt": "Transparent background. Flat dark mountain ridge silhouette across the lower third, layered peaks, heavy black ink outline, no subject in the centre." },
+        { "file": "switchbacks",   "name": "Switchbacks",   "weight": 80, "tier": "common",    "prompt": "Transparent background. A pale zigzag switchback trail climbing from the bottom-left corner to the upper-right, drawn as a dashed ink path, centre kept clear." },
+        { "file": "pine-stand",    "name": "Pine Stand",    "weight": 75, "tier": "common",    "prompt": "Transparent background. A stand of flat triangular pine trees along the bottom edge and both lower corners, dark green with heavy ink outlines." },
+        { "file": "cable-car",     "name": "Cable Car",     "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. A cable stretched corner to corner across the upper third with one small gondola hanging from it, flat colour, heavy ink." },
+        { "file": "storm-front",   "name": "Storm Front",   "weight": 55, "tier": "uncommon",  "prompt": "Transparent background. Flat stacked storm cloud shapes across the top edge with two lightning bolts, heavy ink outlines, centre clear." },
+        { "file": "aurora",        "name": "Aurora",        "weight": 45, "tier": "uncommon",  "prompt": "Transparent background. Soft vertical ribbons of green and violet aurora light across the top half, no outline, low opacity, centre clear." },
+        { "file": "altitude-grid", "name": "Altitude Grid", "weight": 45, "tier": "uncommon",  "prompt": "Transparent background. A faint technical grid of horizontal contour lines with small elevation numbers along the left edge, thin ink, blueprint feel." },
+        { "file": "sunburst",      "name": "Sunburst",      "weight": 40, "tier": "rare",      "prompt": "Transparent background. Radiating flat triangular sunburst rays from behind the head position, warm gold, alternating spokes, no outline." },
+        { "file": "crevasse",      "name": "Crevasse",      "weight": 30, "tier": "rare",      "prompt": "Transparent background. A jagged blue-white glacier crevasse splitting the lower third of the frame, flat two-tone ice, heavy ink." },
+        { "file": "moon-arc",      "name": "Moon Arc",      "weight": 22, "tier": "rare",      "prompt": "Transparent background. A large pale full moon in the upper-left with a thin ink ring around it and a scatter of small stars, centre clear." }
+      ]
+    },
+    {
+      "id": "02-coat",
+      "name": "Coat",
+      "z": 2,
+      "allowNone": false,
+      "batchNote": "The goat itself — head, ears, neck, shoulders and beard, in one layer. Ear carriage is baked into the coat (upright / lop / shag) because it changes the silhouette. Head centre (1024, 950), eye line y=880, muzzle centre y=1210, beard hangs to y=1560. Heavy black ink, two-tone cel shading, light from the upper left.",
+      "layers": [
+        { "file": "alpine-upright",     "name": "Alpine",      "weight": 100, "tier": "common",    "prompt": "A goat head and shoulders, three-quarter front, warm fawn brown #B98A52 coat with a cream muzzle, upright pricked ears, a short chin beard, heavy black ink outline, flat cel shading, transparent background." },
+        { "file": "saanen-upright",     "name": "Saanen",      "weight": 95,  "tier": "common",    "prompt": "A goat head and shoulders, creamy white #F0E6D2 coat, upright pricked ears, short chin beard, heavy black ink outline, flat cel shading, transparent background." },
+        { "file": "toggenburg-upright", "name": "Toggenburg", "weight": 85,  "tier": "common",    "prompt": "A goat head and shoulders, mid chocolate #7E5A3C coat with pale facial stripes and cream ear edges, upright ears, chin beard, heavy ink, transparent background." },
+        { "file": "boer-lop",           "name": "Boer",        "weight": 85,  "tier": "common",    "prompt": "A goat head and shoulders, white body with a russet #A8452C head, long pendulous lop ears hanging beside the jaw, chin beard, heavy ink, transparent background." },
+        { "file": "nubian-lop",         "name": "Nubian",      "weight": 80,  "tier": "common",    "prompt": "A goat head and shoulders, glossy black-and-tan coat, very long soft lop ears hanging past the jaw, roman nose, chin beard, heavy ink, transparent background." },
+        { "file": "pygmy-upright",      "name": "Pygmy",       "weight": 75,  "tier": "common",    "prompt": "A stocky small goat head and shoulders, agouti grey-brown #8C7A63 coat, short upright ears, wide cheeks, tufty beard, heavy ink, transparent background." },
+        { "file": "oberhasli-upright",  "name": "Oberhasli",   "weight": 65,  "tier": "uncommon",  "prompt": "A goat head and shoulders, deep bay red #9C5A2E coat with black face stripes and black muzzle, upright ears, chin beard, heavy ink, transparent background." },
+        { "file": "angora-shag",        "name": "Angora",      "weight": 55,  "tier": "uncommon",  "prompt": "A goat head and shoulders buried in long curly mohair ringlets, cream #EDE0C8, floppy shaggy ears, a long beard merging into the fleece, heavy ink, transparent background." },
+        { "file": "cashmere-shag",      "name": "Cashmere",    "weight": 50,  "tier": "uncommon",  "prompt": "A goat head and shoulders in thick soft grey #B5B2A8 undercoat, shaggy ears, long fine beard, heavy ink, flat cel shading, transparent background." },
+        { "file": "bezoar-wild",        "name": "Bezoar",      "weight": 45,  "tier": "uncommon",  "prompt": "A wild bezoar ibex head and shoulders, sandy tan #C8A06A with a hard black dorsal stripe and black chest, lean face, upright ears, long black beard, heavy ink, transparent background." },
+        { "file": "black-alpine",       "name": "Black Alpine","weight": 40,  "tier": "rare",      "prompt": "A goat head and shoulders in near-black #2B2A33 coat with faint blue rim light, upright ears, black beard, heavy ink outline still readable against the fur, transparent background." },
+        { "file": "silver-ash",         "name": "Silver Ash",  "weight": 35,  "tier": "rare",      "prompt": "A goat head and shoulders in pale silver-ash #C6CBD1 coat with cool grey shading, upright ears, silver beard, heavy ink, transparent background." },
+        { "file": "ghost-white",        "name": "Ghost",       "weight": 12,  "tier": "legendary", "prompt": "A translucent ghost goat head and shoulders, glowing pale white-blue, semi-transparent body, faint ink outline, wispy edges, transparent background." },
+        { "file": "gilded",             "name": "Gilded",      "weight": 8,   "tier": "legendary", "prompt": "A goat head and shoulders cast in polished gold #D9A441 with hard highlight bands and dark gold shadow, metallic cel shading, heavy ink, transparent background." }
+      ]
+    },
+    {
+      "id": "03-marking",
+      "name": "Marking",
+      "z": 3,
+      "allowNone": true,
+      "noneWeight": 260,
+      "batchNote": "Transparent PNG. Fur markings painted ON the face and neck only — must sit inside the head silhouette (centre 1024,950, roughly 400x440 radius). No outline heavier than the coat's.",
+      "layers": [
+        { "file": "blaze",      "name": "Blaze",       "weight": 90, "tier": "common",    "prompt": "Transparent background. A single wide cream blaze stripe running down the centre of a goat's face from forehead to muzzle, soft-edged, no outline." },
+        { "file": "star",       "name": "Star",        "weight": 85, "tier": "common",    "prompt": "Transparent background. A small white star-shaped patch centred high on a goat's forehead, no outline." },
+        { "file": "moon-patch", "name": "Moon Patch",  "weight": 75, "tier": "common",    "prompt": "Transparent background. A pale crescent-moon patch over one cheek of a goat's face, flat colour, no outline." },
+        { "file": "freckles",   "name": "Freckles",    "weight": 70, "tier": "common",    "prompt": "Transparent background. A scatter of small dark freckle dots across a goat's muzzle and cheeks, no outline." },
+        { "file": "dapple",     "name": "Dapple",      "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. Soft dappled rosette spots across a goat's neck and cheeks, low contrast, no outline." },
+        { "file": "socks",      "name": "Ear Tips",    "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. Contrasting pale tips on both goat ears, flat colour, following the ear shape, no outline." },
+        { "file": "badger-face","name": "Badger Face", "weight": 50, "tier": "uncommon",  "prompt": "Transparent background. Two bold dark bands running from the base of the horns down over the eyes to the muzzle, badger-face goat pattern, flat colour." },
+        { "file": "roan-frost", "name": "Roan Frost",  "weight": 40, "tier": "rare",      "prompt": "Transparent background. A fine frosting of white roan hairs across a goat's shoulders and jaw, stippled, no outline." },
+        { "file": "brand-8848", "name": "Brand 8848",  "weight": 25, "tier": "rare",      "prompt": "Transparent background. The number 8848 branded in small block type on a goat's left shoulder, scorched dark edges, slight perspective." },
+        { "file": "gold-leaf",  "name": "Gold Leaf",   "weight": 12, "tier": "legendary", "prompt": "Transparent background. Torn fragments of gold leaf pressed onto a goat's cheek and brow, metallic gold with hard edges." }
+      ]
+    },
+    {
+      "id": "04-outfit",
+      "name": "Outfit",
+      "z": 4,
+      "allowNone": true,
+      "noneWeight": 140,
+      "batchNote": "Transparent PNG. Garments on the shoulders and chest only. The neckline must sit at y=1560 and never rise above the jaw (y=1400) or it covers the beard. Nothing above the chin.",
+      "layers": [
+        { "file": "flannel",     "name": "Flannel",      "weight": 95, "tier": "common",    "prompt": "Transparent background. A red-and-black buffalo check flannel shirt on goat shoulders, open collar, heavy black ink outline, flat cel shading." },
+        { "file": "puffer",      "name": "Puffer",       "weight": 90, "tier": "common",    "prompt": "Transparent background. A quilted orange puffer jacket on goat shoulders with horizontal baffle seams and a high collar, heavy ink outline." },
+        { "file": "hoodie",      "name": "Hoodie",       "weight": 85, "tier": "common",    "prompt": "Transparent background. A grey pullover hoodie on goat shoulders with the hood bunched at the back and a drawstring, heavy ink outline." },
+        { "file": "harness",     "name": "Climb Harness","weight": 80, "tier": "common",    "prompt": "Transparent background. A climbing chest harness of orange webbing straps with steel buckles and a carabiner over goat shoulders, heavy ink." },
+        { "file": "hi-vis",      "name": "Hi-Vis",       "weight": 70, "tier": "common",    "prompt": "Transparent background. A hi-vis yellow safety vest with two silver reflective bands over goat shoulders, heavy ink outline." },
+        { "file": "fleece-vest", "name": "Fleece Vest",  "weight": 70, "tier": "common",    "prompt": "Transparent background. A navy fleece gilet with a full-length zip on goat shoulders, soft texture edge, heavy ink outline." },
+        { "file": "varsity",     "name": "Varsity",      "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. A cream and green varsity jacket with striped ribbed collar and a chenille letter G on the chest, heavy ink." },
+        { "file": "wool-scarf",  "name": "Wool Scarf",   "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. A chunky knitted wool scarf wrapped twice around a goat's neck with a tasselled end hanging, heavy ink." },
+        { "file": "bandana",     "name": "Neckerchief",  "weight": 55, "tier": "uncommon",  "prompt": "Transparent background. A paisley bandana knotted at a goat's throat, triangular point hanging on the chest, heavy ink." },
+        { "file": "bell-collar", "name": "Bell Collar",  "weight": 50, "tier": "uncommon",  "prompt": "Transparent background. A wide tooled leather collar with a large brass alpine cowbell hanging at the throat, heavy ink, metallic highlights." },
+        { "file": "tuxedo",      "name": "Tuxedo",       "weight": 40, "tier": "rare",      "prompt": "Transparent background. A black tuxedo with satin lapels, white shirt front and a black bow tie on goat shoulders, heavy ink." },
+        { "file": "tow-rope",    "name": "Tow Rope",     "weight": 35, "tier": "rare",      "prompt": "Transparent background. A thick coil of climbing rope slung diagonally across goat shoulders, twisted fibre texture, heavy ink." },
+        { "file": "gold-chain",  "name": "Gold Chain",   "weight": 25, "tier": "rare",      "prompt": "Transparent background. A heavy gold cuban link chain around a goat's neck with a small gold goat-head pendant, metallic shading, heavy ink." },
+        { "file": "summit-cape", "name": "Summit Cape",  "weight": 15, "tier": "legendary", "prompt": "Transparent background. A deep red mountaineer's cape clasped at the throat with a gold summit medallion, wind-lifted edge, heavy ink." }
+      ]
+    },
+    {
+      "id": "05-mouth",
+      "name": "Mouth",
+      "z": 5,
+      "allowNone": false,
+      "batchNote": "Transparent PNG. Muzzle, nostrils and mouth only, centred at (1024, 1210). Must not extend above y=1090 (the eye zone) or below y=1330 (the beard).",
+      "layers": [
+        { "file": "chewing",    "name": "Chewing",     "weight": 100, "tier": "common",    "prompt": "Transparent background. A goat muzzle with slit nostrils and a small mouth pushed sideways mid-chew, heavy black ink outline, flat shading." },
+        { "file": "grass-blade","name": "Grass Blade", "weight": 95,  "tier": "common",    "prompt": "Transparent background. A goat muzzle with a single long blade of green grass hanging out of the corner of the mouth, heavy ink." },
+        { "file": "smirk",      "name": "Smirk",       "weight": 90,  "tier": "common",    "prompt": "Transparent background. A goat muzzle with one side of the mouth curled up in a knowing smirk, heavy ink." },
+        { "file": "bleat",      "name": "Bleat",       "weight": 80,  "tier": "common",    "prompt": "Transparent background. A goat muzzle with the mouth wide open mid-bleat showing the lower teeth and tongue, heavy ink." },
+        { "file": "grin",       "name": "Grin",        "weight": 75,  "tier": "common",    "prompt": "Transparent background. A goat muzzle with a wide closed-lip grin and visible square front teeth, heavy ink." },
+        { "file": "tongue-out", "name": "Tongue Out",  "weight": 65,  "tier": "uncommon",  "prompt": "Transparent background. A goat muzzle with the tongue lolling out to one side, pink tongue, heavy ink." },
+        { "file": "cud",        "name": "Cud",         "weight": 60,  "tier": "uncommon",  "prompt": "Transparent background. A goat muzzle with one cheek bulging round with cud and a flat closed mouth, heavy ink." },
+        { "file": "tin-can",    "name": "Tin Can",     "weight": 45,  "tier": "rare",      "prompt": "Transparent background. A goat muzzle biting the crushed rim of a tin can, torn metal edge, heavy ink." },
+        { "file": "cigar",      "name": "Cigar",       "weight": 30,  "tier": "rare",      "prompt": "Transparent background. A goat muzzle clamping a lit cigar at an angle with a curl of smoke and a glowing ember, heavy ink." },
+        { "file": "gold-grill", "name": "Gold Grill",  "weight": 18,  "tier": "legendary", "prompt": "Transparent background. A goat muzzle with the mouth open showing a full gold grill across the lower teeth, metallic highlights, heavy ink." }
+      ]
+    },
+    {
+      "id": "06-eyes",
+      "name": "Eyes",
+      "z": 6,
+      "allowNone": false,
+      "batchNote": "Transparent PNG. Both eyes on the eye line y=880, centred at x=872 and x=1176. Goats have HORIZONTAL RECTANGULAR pupils — that bar pupil is the signature of the whole collection and must survive every variant that isn't explicitly closed or transformed.",
+      "layers": [
+        { "file": "slit",        "name": "Slit",        "weight": 100, "tier": "common",    "prompt": "Transparent background. A pair of goat eyes, amber irises with black horizontal rectangular bar pupils, heavy ink outline, single white highlight square." },
+        { "file": "side-eye",    "name": "Side Eye",    "weight": 90,  "tier": "common",    "prompt": "Transparent background. A pair of goat eyes with horizontal bar pupils shifted hard to one side, one brow lowered, heavy ink." },
+        { "file": "wide",        "name": "Wide",        "weight": 85,  "tier": "common",    "prompt": "Transparent background. A pair of goat eyes opened wide in alarm, whites showing all around the horizontal bar pupils, heavy ink." },
+        { "file": "sleepy",      "name": "Sleepy",      "weight": 75,  "tier": "common",    "prompt": "Transparent background. A pair of half-lidded sleepy goat eyes, heavy upper lids covering the top of the bar pupils, heavy ink." },
+        { "file": "focused",     "name": "Focused",     "weight": 70,  "tier": "common",    "prompt": "Transparent background. A pair of narrowed determined goat eyes with straight lowered brows and hard bar pupils, heavy ink." },
+        { "file": "squint",      "name": "Squint",      "weight": 65,  "tier": "uncommon",  "prompt": "Transparent background. A pair of goat eyes squeezed into a suspicious squint, bar pupils just visible, heavy ink." },
+        { "file": "dizzy",       "name": "Dizzy",       "weight": 45,  "tier": "uncommon",  "prompt": "Transparent background. A pair of goat eyes drawn as spinning concentric spirals, dazed expression, heavy ink." },
+        { "file": "heart",       "name": "Heart",       "weight": 40,  "tier": "uncommon",  "prompt": "Transparent background. A pair of goat eyes with pink heart-shaped pupils in place of the bar pupils, heavy ink." },
+        { "file": "money",       "name": "Money",       "weight": 35,  "tier": "rare",      "prompt": "Transparent background. A pair of goat eyes with green dollar signs in place of the pupils, heavy ink." },
+        { "file": "closed-happy","name": "Closed",      "weight": 35,  "tier": "rare",      "prompt": "Transparent background. A pair of closed happy goat eyes drawn as two upward arcs, heavy ink." },
+        { "file": "void-black",  "name": "Void",        "weight": 22,  "tier": "rare",      "prompt": "Transparent background. A pair of solid matte black goat eyes with no iris and no highlight, a single thin bar of white where the pupil should be, unsettling, heavy ink." },
+        { "file": "laser",       "name": "Laser",       "weight": 6,   "tier": "legendary", "prompt": "Transparent background. A pair of goat eyes firing horizontal red laser beams straight out of the bar pupils, hot white core, glowing edges." }
+      ]
+    },
+    {
+      "id": "07-horns",
+      "name": "Horns",
+      "z": 7,
+      "allowNone": true,
+      "noneWeight": 60,
+      "batchNote": "Transparent PNG. Horns rise from the skull at (940, 660) and (1108, 660) and sweep back and up. This is the collection's crown category — the horn silhouette is what you read at 64px. Keep both horns symmetrical unless the layer is explicitly asymmetric, and never cross the eye line.",
+      "layers": [
+        { "file": "nubs",           "name": "Nubs",           "weight": 100, "tier": "common",    "prompt": "Transparent background. A pair of short blunt goat horn nubs barely clearing the skull, ridged base, heavy black ink, flat cel shading." },
+        { "file": "alpine-sweep",   "name": "Alpine Sweep",   "weight": 95,  "tier": "common",    "prompt": "Transparent background. A pair of medium goat horns sweeping smoothly up and back in a shallow curve, ringed growth bands, heavy ink." },
+        { "file": "scimitar",       "name": "Scimitar",       "weight": 85,  "tier": "common",    "prompt": "Transparent background. A pair of long curved scimitar goat horns arcing back over the skull, tapering to sharp points, heavy ink." },
+        { "file": "ibex-ridged",    "name": "Ibex",           "weight": 70,  "tier": "common",    "prompt": "Transparent background. A pair of massive ibex horns with deep horizontal ridge knuckles all the way up, curving back, heavy ink." },
+        { "file": "corkscrew",      "name": "Corkscrew",      "weight": 60,  "tier": "uncommon",  "prompt": "Transparent background. A pair of tight corkscrew goat horns spiralling upward, twisted ribbon form, heavy ink." },
+        { "file": "boer-curl",      "name": "Boer Curl",      "weight": 60,  "tier": "uncommon",  "prompt": "Transparent background. A pair of thick goat horns curving back and then tucking down beside the ears in a tight curl, heavy ink." },
+        { "file": "markhor-spiral", "name": "Markhor",        "weight": 45,  "tier": "uncommon",  "prompt": "Transparent background. A pair of towering markhor horns twisting in wide open corkscrew spirals straight up, heavy ink." },
+        { "file": "wide-rack",      "name": "Wide Rack",      "weight": 45,  "tier": "uncommon",  "prompt": "Transparent background. A pair of goat horns sweeping almost horizontally out to the sides before tipping up, very wide silhouette, heavy ink." },
+        { "file": "capped",         "name": "Capped",         "weight": 35,  "tier": "rare",      "prompt": "Transparent background. A pair of medium goat horns with polished brass safety caps fitted on the tips, small rivets, heavy ink." },
+        { "file": "banded",         "name": "Banded",         "weight": 35,  "tier": "rare",      "prompt": "Transparent background. A pair of goat horns wrapped in alternating orange and black hazard tape bands, heavy ink." },
+        { "file": "chipped",        "name": "Chipped",        "weight": 30,  "tier": "rare",      "prompt": "Transparent background. A pair of goat horns where one is snapped short with a jagged break and the other is long and intact, asymmetric, heavy ink." },
+        { "file": "neon",           "name": "Neon",           "weight": 20,  "tier": "rare",      "prompt": "Transparent background. A pair of goat horns rendered as glowing magenta neon tubes with a soft bloom, dark ink core, night-sign feel." },
+        { "file": "gold-tipped",    "name": "Gold Tipped",    "weight": 15,  "tier": "legendary", "prompt": "Transparent background. A pair of long dark goat horns dipped in molten gold for the top third, hard metallic highlight, heavy ink." },
+        { "file": "crystal",        "name": "Crystal",        "weight": 8,   "tier": "legendary", "prompt": "Transparent background. A pair of translucent pale blue crystal goat horns with hard faceted planes and internal light, thin ink, transparent." }
+      ]
+    },
+    {
+      "id": "08-headwear",
+      "name": "Headwear",
+      "z": 8,
+      "allowNone": true,
+      "noneWeight": 300,
+      "batchNote": "Transparent PNG. Sits on the skull between the horns, brim no lower than y=700. Anything with a wide brim gets excluded against the big horn sets in config.js — design for the low-profile silhouette.",
+      "layers": [
+        { "file": "beanie",       "name": "Beanie",       "weight": 90, "tier": "common",    "prompt": "Transparent background. A ribbed knit beanie pulled low on a goat's skull with a rolled brim and a small pom, cut away where the horns pass through, heavy ink." },
+        { "file": "headlamp",     "name": "Headlamp",     "weight": 80, "tier": "common",    "prompt": "Transparent background. An elastic head torch strapped across a goat's brow with a lit lamp housing and a pale beam, heavy ink." },
+        { "file": "bandana-tie",  "name": "Bandana Tie",  "weight": 70, "tier": "common",    "prompt": "Transparent background. A patterned bandana tied do-rag style over a goat's skull with the knot at the back, heavy ink." },
+        { "file": "goggles-up",   "name": "Goggles Up",   "weight": 65, "tier": "common",    "prompt": "Transparent background. A pair of mirrored ski goggles pushed up onto a goat's forehead, strap across the skull, heavy ink." },
+        { "file": "trapper",      "name": "Trapper",      "weight": 55, "tier": "uncommon",  "prompt": "Transparent background. A shearling trapper hat on a goat's head with the fur ear flaps hanging down, heavy ink." },
+        { "file": "hard-hat",     "name": "Hard Hat",     "weight": 50, "tier": "uncommon",  "prompt": "Transparent background. A yellow climbing helmet on a goat's skull with a chin strap and two horn cut-outs, heavy ink." },
+        { "file": "cowboy",       "name": "Cowboy",       "weight": 45, "tier": "uncommon",  "prompt": "Transparent background. A tan felt cowboy hat tipped back on a goat's head, curled brim, banded crown, heavy ink." },
+        { "file": "laurel",       "name": "Laurel",       "weight": 40, "tier": "uncommon",  "prompt": "Transparent background. A green laurel victory wreath resting around a goat's skull between the horns, heavy ink." },
+        { "file": "party-cone",   "name": "Party Cone",   "weight": 30, "tier": "rare",      "prompt": "Transparent background. A striped conical party hat tilted on a goat's head with an elastic chin string and a pom on top, heavy ink." },
+        { "file": "chef-toque",   "name": "Chef Toque",   "weight": 25, "tier": "rare",      "prompt": "Transparent background. A tall pleated white chef's toque sitting on a goat's skull, heavy ink." },
+        { "file": "crown",        "name": "Crown",        "weight": 22, "tier": "rare",      "prompt": "Transparent background. A heavy gold five-point crown with inset red gems sitting between a goat's horns, metallic shading, heavy ink." },
+        { "file": "halo",         "name": "Halo",         "weight": 18, "tier": "legendary", "prompt": "Transparent background. A glowing gold halo ring floating in the air above a goat's head, soft bloom, thin ink ellipse." }
+      ]
+    },
+    {
+      "id": "09-eyewear",
+      "name": "Eyewear",
+      "z": 9,
+      "allowNone": true,
+      "noneWeight": 340,
+      "batchNote": "Transparent PNG. Sits on the eye line y=880 spanning x=790 to x=1258, with temples running back to the ears. Excluded against closed, dizzy and laser eyes in config.js.",
+      "layers": [
+        { "file": "glacier-glasses","name": "Glacier Glasses","weight": 85, "tier": "common",   "prompt": "Transparent background. Round glacier mountaineering sunglasses with leather side shields and dark green lenses, wire temples, heavy ink." },
+        { "file": "shutter-shades", "name": "Shutter Shades", "weight": 75, "tier": "common",   "prompt": "Transparent background. Bright slatted shutter shades across the eyes, horizontal louvres, heavy ink." },
+        { "file": "aviators",       "name": "Aviators",       "weight": 70, "tier": "common",   "prompt": "Transparent background. Gold-framed teardrop aviator sunglasses with a double brow bar and gradient lenses, heavy ink." },
+        { "file": "ski-goggles",    "name": "Ski Goggles",    "weight": 65, "tier": "common",   "prompt": "Transparent background. Wide mirrored ski goggles worn over the eyes with a foam gasket and a wrap strap, chrome reflection, heavy ink." },
+        { "file": "round-specs",    "name": "Round Specs",    "weight": 55, "tier": "uncommon", "prompt": "Transparent background. Thin round wire-rim spectacles over the eyes with clear lenses and a small glare mark, heavy ink." },
+        { "file": "visor",          "name": "Visor",          "weight": 40, "tier": "uncommon", "prompt": "Transparent background. A wraparound orange sports visor band across the eyes, single curved lens, heavy ink." },
+        { "file": "monocle",        "name": "Monocle",        "weight": 35, "tier": "rare",     "prompt": "Transparent background. A gold monocle on a fine chain over the right eye only, glare mark on the glass, heavy ink." },
+        { "file": "laser-visor",    "name": "Laser Visor",    "weight": 18, "tier": "legendary","prompt": "Transparent background. A slim black cyclops visor band across the eyes with a single red scanning slit glowing across it, heavy ink." }
+      ]
+    },
+    {
+      "id": "10-held",
+      "name": "Held Item",
+      "z": 10,
+      "allowNone": true,
+      "noneWeight": 300,
+      "batchNote": "Transparent PNG. One object held in a hoof at (470, 1620), lower left. Include the hoof and a bit of foreleg. Nothing above y=1250 — it must never reach the face.",
+      "layers": [
+        { "file": "tin-can",     "name": "Tin Can",     "weight": 90, "tier": "common",    "prompt": "Transparent background. A goat hoof and foreleg holding a battered tin can with the label half torn off, lower left, heavy ink." },
+        { "file": "ice-axe",     "name": "Ice Axe",     "weight": 75, "tier": "common",    "prompt": "Transparent background. A goat hoof gripping a mountaineering ice axe with a steel pick and rubber grip, lower left, heavy ink." },
+        { "file": "rope-coil",   "name": "Rope Coil",   "weight": 70, "tier": "common",    "prompt": "Transparent background. A goat hoof holding a neat coil of orange climbing rope, lower left, heavy ink." },
+        { "file": "summit-flag", "name": "Summit Flag", "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. A goat hoof holding a small triangular pennant flag on a pole, flag reading G, lower left, heavy ink." },
+        { "file": "cowbell",     "name": "Cowbell",     "weight": 60, "tier": "uncommon",  "prompt": "Transparent background. A goat hoof swinging a large brass alpine cowbell by its strap, motion lines, lower left, heavy ink." },
+        { "file": "hay-bale",    "name": "Hay Bale",    "weight": 50, "tier": "uncommon",  "prompt": "Transparent background. A goat hoof balancing a small square hay bale bound with twine, loose straws, lower left, heavy ink." },
+        { "file": "espresso",    "name": "Espresso",    "weight": 45, "tier": "uncommon",  "prompt": "Transparent background. A goat hoof holding a tiny espresso cup on a saucer with a curl of steam, lower left, heavy ink." },
+        { "file": "ski-poles",   "name": "Ski Poles",   "weight": 40, "tier": "rare",      "prompt": "Transparent background. A goat hoof gripping a pair of crossed ski poles with baskets, lower left, heavy ink." },
+        { "file": "trophy",      "name": "Trophy",      "weight": 28, "tier": "rare",      "prompt": "Transparent background. A goat hoof raising a small two-handled gold trophy cup, shine marks, lower left, heavy ink." },
+        { "file": "gold-pick",   "name": "Gold Pick",   "weight": 15, "tier": "legendary", "prompt": "Transparent background. A goat hoof holding a solid gold pickaxe with a jewelled head, radiating shine, lower left, heavy ink." }
+      ]
+    },
+    {
+      "id": "11-overlay",
+      "name": "Overlay",
+      "z": 11,
+      "allowNone": true,
+      "noneWeight": 420,
+      "batchNote": "Transparent PNG, full bleed, sits on top of everything. Keep it under 35% opacity over the face or it destroys the read at avatar size.",
+      "layers": [
+        { "file": "snowfall",      "name": "Snowfall",      "weight": 80, "tier": "common",    "prompt": "Transparent background. Falling white snowflakes scattered across the whole frame at varying sizes, soft, full bleed." },
+        { "file": "alpenglow",     "name": "Alpenglow",     "weight": 70, "tier": "common",    "prompt": "Transparent background. A warm pink-orange alpenglow light wash falling diagonally from the upper left, low opacity, full bleed." },
+        { "file": "altitude-haze", "name": "Altitude Haze", "weight": 65, "tier": "common",    "prompt": "Transparent background. A cold pale mist banding across the lower third of the frame, soft horizontal gradient, full bleed." },
+        { "file": "scanlines",     "name": "Scanlines",     "weight": 50, "tier": "uncommon",  "prompt": "Transparent background. Thin dark horizontal CRT scanlines evenly spaced across the frame at low opacity, full bleed." },
+        { "file": "sparkle",       "name": "Sparkle",       "weight": 45, "tier": "uncommon",  "prompt": "Transparent background. A scatter of white four-point sparkle stars of varying size across the frame, full bleed." },
+        { "file": "laser-glow",    "name": "Laser Glow",    "weight": 25, "tier": "rare",      "prompt": "Transparent background. A hot red glow radiating from the eye line outward, additive light bloom, full bleed." },
+        { "file": "gold-shimmer",  "name": "Gold Shimmer",  "weight": 20, "tier": "rare",      "prompt": "Transparent background. Drifting gold dust motes and a soft warm sheen across the frame, full bleed." },
+        { "file": "pixel-mode",    "name": "Pixel Mode",    "weight": 15, "tier": "legendary", "prompt": "Transparent background. A hard pixel grid quantising the whole image into large square blocks, 8-bit treatment, full bleed." }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
 node_modules/
-generator/output/
-generator/layers/
+**/generator/output/
+**/generator/layers/
 .DS_Store
