@@ -93,6 +93,13 @@ module.exports = {
 
     // Pixel mode is the GameDawg tier — it should look clean, no other overlay noise.
     { when: ['overlay:pixel-mode'], forbid: ['backdrop:rainbow', 'backdrop:city-skyline'] },
+
+    // Nothing obscures a King's face. The tier already pins `eyewear:none`, but markings are
+    // a separate layer and eyepatch/mask/brindle/spots all cross the eye line — which reads
+    // as a rendering fault rather than a trait, on the ten most valuable pieces in the set.
+    // `headwear:crown` is reserved to the Dawg King tier, so this scopes to Kings only.
+    { when: ['headwear:crown'],
+      forbid: ['marking:eyepatch', 'marking:mask-face', 'marking:brindle', 'marking:spots'] },
   ],
 
   /**
