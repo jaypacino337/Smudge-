@@ -1,0 +1,50 @@
+name: Deploy site to GitHub Pages
+
+# The repo serves two sites from one Pages deployment:
+#   /          PUMP DAWGS
+#   /goatse/   GOATSE
+#
+# This runs on the branch it lives on. If this branch is ever merged into the
+# default branch, change the `branches:` list below to match — otherwise pushes
+# to the default branch won't redeploy.
+
+on:
+  push:
+    branches: [claude/job-site-design-quality-e2nuf3]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deployments race; let an in-flight one finish rather than
+# cancelling it and leaving the live site half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # enablement: true turns Pages on for the repo the first time this runs,
+      # so nobody has to flip it in Settings by hand.
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@v4

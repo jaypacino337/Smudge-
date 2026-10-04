@@ -152,11 +152,12 @@ function renderZStack() {
   if (!host || !window.PROMPTS) return;
 
   const rows = window.PROMPTS.categories.map(c => {
-    // strip the boilerplate prefix BEFORE taking the first sentence, or every
-    // transparent category's note comes out as the empty string
-    const note = (c.batchNote
-      .replace(/^Transparent PNG,?\.?\s*/i, '')
-      .split(/(?<=\.)\s/)[0] || '')
+    // Strip the boilerplate prefix BEFORE taking the first sentence, or every
+    // transparent category's note comes out as the empty string.
+    // No lookbehind here on purpose: Safari only gained it in 16.4, and a SyntaxError
+    // anywhere in this file stops the WHOLE file parsing, not just this function.
+    const stripped = c.batchNote.replace(/^Transparent PNG,?\.?\s*/i, '');
+    const note = (stripped.match(/^[^.]*\./) || [stripped])[0]
       .replace(/^./, m => m.toUpperCase());
     const n = c.layers.length + (c.allowNone ? 1 : 0);
     return `<div class="zrow">

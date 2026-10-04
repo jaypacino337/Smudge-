@@ -24,7 +24,7 @@ module.exports = {
   creators: [
     { address: 'REPLACE_WITH_YOUR_SOLANA_WALLET', share: 100 },
   ],
-  externalUrl: 'https://goatse.wtf',
+  externalUrl: 'https://jaypacino337.github.io/Smudge-/goatse/',   // swap for a real domain once one is registered
 
   // ─── Layer order: bottom → top. Folder names must match exactly. ───────────
   layerOrder: [
